@@ -5,6 +5,31 @@ var FullQuery = "/full";
 
 var RouteLayers = [];
 
+var currentLineColor;
+var currentNodeColor;
+
+var RouteColorSettings = {
+	LineColor : [],
+	NodeColor : []
+}
+
+var BusRouteLineOptions;
+var BusStopNodeOptions;
+
+function InitLeafletOptions(){
+
+	BusRouteLineOptions = {
+	color : currentLineColor,
+	opacity : 1,
+	clickable : false
+	};
+
+	BusStopNodeOptions = {
+	color : currentNodeColor,
+	opacity : 1
+	};
+}
+
 function DownloadRouteMaster(id){
 
 
@@ -81,8 +106,9 @@ L.OSM.DataLayer = L.FeatureGroup.extend({
         //if(this.isBusStop(feature))
         	//layer = L.marker(feature.latLng, this.options.styles.node);
         	//var busIcon = new BusStopIcon();
-
-        	layer = L.circleMarker(feature.latLng , BusStopNodeOptions);
+        	//console.log(CheckEnableBusStop());
+        	if(this.CheckEnableBusStop())
+        		layer = L.circleMarker(feature.latLng , BusStopNodeOptions);
       } 
       else
       {
@@ -101,8 +127,10 @@ L.OSM.DataLayer = L.FeatureGroup.extend({
         //}
       }
 
-      layer.addTo(this);
-      layer.feature = feature;
+      if(layer !== undefined){
+      		layer.addTo(this);
+      	layer.feature = feature;
+      }
     }
   },
 
@@ -154,7 +182,18 @@ L.OSM.DataLayer = L.FeatureGroup.extend({
   	//window.alert(bIsBusStop);
 
   	return bIsBusStop;
-  }//,
+  },
+
+  CheckEnableBusStop:function (){
+
+	var checked = false;
+	var checkedElement = $("#ShowBusStop:checked");
+
+	if(checkedElement.length > 0)
+		checked = true;
+
+	return checked;
+  }
 
   /*interestingNode: function (node, ways, relations) {
     var used = false;
@@ -306,14 +345,3 @@ L.Util.extend(L.OSM, {
     return result;
   }
 });
-
-var BusRouteLineOptions = {
-	color : "#9900CC",
-	opacity : 1,
-	clickable : false
-};
-
-var BusStopNodeOptions = {
-	color : "#CC99FF",
-	opacity : 1
-}

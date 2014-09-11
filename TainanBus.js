@@ -2,7 +2,6 @@
 var categoryJsonUrl = "LocalData/MainCategory";
 var routeJsonUrl = "LocalData/BusRoute";
 var routeJsonExtension = ".json";
-//TODO:其他分類
 
 var map = L.map('map').setView([23.1852, 120.4287], 11);
 
@@ -34,11 +33,17 @@ function InitCategories()
 		$.each(data, function (i, item){
 			//window.alert(item.categoryName);
 			categoryList.append($('<option></option>').text(item.categoryName).attr('value', item.categoryIndex));
-		});                      
-	});
 
-	//Init Default Route List
-	SetRoutesList(1);
+			//window.alert(RouteColorSettings["LineColor"]);
+
+			//Save Color Setting
+			RouteColorSettings["LineColor"].push(item.categoryLineColor);
+			RouteColorSettings["NodeColor"].push(item.categoryNodeColor);
+		});
+
+		//Init Default Route List
+		SetRoutesList(1);                      
+	});
 }
 
 function ChangeCategory(){
@@ -52,10 +57,21 @@ function ChangeCategory(){
 function SetRoutesList(id){
 	var routeList = $("#SelectRoute").empty();
 
+	currentLineColor = RouteColorSettings["LineColor"][id - 1];
+	currentNodeColor = RouteColorSettings["NodeColor"][id - 1];
+
+	//console.log(currentLineColor);
+
+	//Change Color
+	InitLeafletOptions();
+
 	$.getJSON(routeJsonUrl + id + routeJsonExtension, function(data){
 		$.each(data, function(i, item){
 			routeList.append($('<option></option>').text(item.RouteName).attr('value', item.RouteOSMRelation).attr('label', item.RouteFromTo));
 		});
+
+
+		SetSelectedRoute();
 	});
 }
 
