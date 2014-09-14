@@ -21,22 +21,42 @@
     <![endif]-->
   </head>
   <body>
-    <div class="container">
-      <div class="page-header">
-        <h1>Choose Route</h1>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand">臺南市公車路線地圖</a>
+          <p class="navbar-text">By Kagami</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="wrapper">
+      <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <li class="sidebar-brand">
+            <a href="#">Start Bootstrap</a>
+          </li>
+          <li>
+            <p>是否顯示站牌：<input type="checkbox" id="ShowBusStop" checked="checked"></p>
+          </li>
+          <li>
+            <p>路線分類：<select id="SelectCategory"></select></p>
+          </li>
+          <li>
+            <p>路線：<select id="SelectRoute"></select></p>
+          </li>
+          <li>
+            <p>路線起終點:<span class="label label-primary" id = "RouteDes"></span></p>
+          </li>
+        </ul>
       </div>
 
-      <div id="DropDownList">
-      是否顯示站牌：<input type="checkbox" id="ShowBusStop" checked="checked"><br></br>
-      路線分類：<select id="SelectCategory"></select><br></br>
-      路線：<select id="SelectRoute"></select> 
+      <div id="page-content-wrapper">
+        <div class="container-fluid">
+          <div id= "map">
+        </div>
       </div>
-      <h3>Route Information:<span class="label label-primary" id = "RouteDes"></span></h3>
-      <div class="page-header">
-        <h1>Map</h1>
-      </div>
-      <div id= "map"></div>
-    </div>
+    </div> 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
