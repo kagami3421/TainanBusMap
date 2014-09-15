@@ -3,30 +3,41 @@ L.OSM = {};
 var OSMAPIUrl = "http://api.openstreetmap.org/api/0.6/relation/";
 var FullQuery = "/full";
 
+var BusIcon = "Icons/busIcon";
+var BusIcon_Ext = ".png";
+
 var RouteLayers = [];
 
 var currentLineColor;
-var currentNodeColor;
+var currentBusMarker;
 
-var RouteColorSettings = {
-	LineColor : [],
-	NodeColor : []
-}
+var LineColor = [];
 
 var BusRouteLineOptions;
-var BusStopNodeOptions;
 
-function InitLeafletOptions(){
+var BusIconOptions = [];
+
+var IconTemplate = L.Icon.extend({
+	options: {
+		iconSize: [20 , 20],
+		iconAnchor: [10, 10]
+	}
+});
+
+function InitAllIconsOption(value){
+	var tmpIcon = new IconTemplate({iconUrl: BusIcon + value + BusIcon_Ext});
+
+	BusIconOptions.push(tmpIcon);
+}
+
+function InitLeafletOptions(id){
+
+	currentBusMarker = BusIconOptions[id - 1];
 
 	BusRouteLineOptions = {
 	color : currentLineColor,
 	opacity : 1,
 	clickable : false
-	};
-
-	BusStopNodeOptions = {
-	color : currentNodeColor,
-	opacity : 1
 	};
 }
 
@@ -107,8 +118,17 @@ L.OSM.DataLayer = L.FeatureGroup.extend({
         	//layer = L.marker(feature.latLng, this.options.styles.node);
         	//var busIcon = new BusStopIcon();
         	//console.log(CheckEnableBusStop());
-        	if(this.CheckEnableBusStop())
-        		layer = L.circleMarker(feature.latLng , BusStopNodeOptions);
+        	if(this.CheckEnableBusStop()){
+
+        		var MarkerOption = {
+        			icon : currentBusMarker , 
+        			opacity : 1 ,
+        			zIndexOffset : 1000 ,
+        			title : this.GetBusStopName(feature.tags)
+        		}
+
+        		layer = L.marker(feature.latLng , MarkerOption).bindPopup(this.GetBusStopName(feature.tags));
+        	}
       } 
       else
       {
@@ -193,6 +213,20 @@ L.OSM.DataLayer = L.FeatureGroup.extend({
 		checked = true;
 
 	return checked;
+  },
+
+  GetBusStopName : function(tags){
+  	var Name;
+
+  	for(var key in tags){
+  		if(key == "name"){
+  			Name = tags[key];
+  			break;
+  		}
+  		//console.log(key);
+  	}
+
+  	return Name;
   }
 
   /*interestingNode: function (node, ways, relations) {

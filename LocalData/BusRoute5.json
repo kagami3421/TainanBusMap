@@ -6,6 +6,30 @@
 		"RouteCode":1300
 	},
 	{
+		"RouteName":"棕1",
+		"RouteFromTo":"新營─鹽水─南鯤鯓─雙春",
+		"RouteOSMRelation":4032928,
+		"RouteCode":1301
+	},
+	{
+		"RouteName":"棕2",
+		"RouteFromTo":"新營─鹽水─下中",
+		"RouteOSMRelation":4032928,
+		"RouteCode":1302
+	},
+	{
+		"RouteName":"棕3",
+		"RouteFromTo":"新營─鹽水─南港里",
+		"RouteOSMRelation":4032928,
+		"RouteCode":1303
+	},
+	{
+		"RouteName":"棕10",
+		"RouteFromTo":"學甲─麻豆",
+		"RouteOSMRelation":4032928,
+		"RouteCode":1310
+	},
+	{
 		"RouteName":"棕11",
 		"RouteFromTo":"學甲─頂洲",
 		"RouteOSMRelation":4032928,

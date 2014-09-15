@@ -40,10 +40,9 @@ function InitCategories()
 			categoryList.append($('<option></option>').text(item.categoryName).attr('value', item.categoryIndex));
 
 			//window.alert(RouteColorSettings["LineColor"]);
-
+			InitAllIconsOption(item.categoryIndex);
 			//Save Color Setting
-			RouteColorSettings["LineColor"].push(item.categoryLineColor);
-			RouteColorSettings["NodeColor"].push(item.categoryNodeColor);
+			LineColor.push(item.categoryLineColor);
 		});
 
 		//Init Default Route List
@@ -62,13 +61,12 @@ function ChangeCategory(){
 function SetRoutesList(id){
 	var routeList = $("#SelectRoute").empty();
 
-	currentLineColor = RouteColorSettings["LineColor"][id - 1];
-	currentNodeColor = RouteColorSettings["NodeColor"][id - 1];
+	currentLineColor = LineColor[id - 1];
 
 	//console.log(currentLineColor);
 
 	//Change Color
-	InitLeafletOptions();
+	InitLeafletOptions(id);
 
 	$.getJSON(routeJsonUrl + id + routeJsonExtension, function(data){
 		$.each(data, function(i, item){
