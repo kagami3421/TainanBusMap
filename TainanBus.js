@@ -21,6 +21,11 @@ $( document ).ready(function() {
     $('#SelectRoute').change(function(){
      	SetSelectedRoute();
     });
+
+    $("#menu-toggle").click(function(e) {
+		e.preventDefault();
+		$("#wrapper").toggleClass("toggled");
+	});
 });
 
 //Function Section-----------------------
@@ -67,7 +72,10 @@ function SetRoutesList(id){
 
 	$.getJSON(routeJsonUrl + id + routeJsonExtension, function(data){
 		$.each(data, function(i, item){
-			routeList.append($('<option></option>').text(item.RouteName).attr('value', item.RouteOSMRelation).attr('label', item.RouteFromTo));
+			if($.browser.mozilla)
+				routeList.append($('<option></option>').text(item.RouteName).attr('value', item.RouteOSMRelation).attr('label', item.RouteFromTo));
+			else
+				routeList.append($('<option></option>').text(item.RouteFromTo).attr('value', item.RouteOSMRelation).attr('label', item.RouteName));
 		});
 
 
@@ -77,8 +85,13 @@ function SetRoutesList(id){
 
 function SetSelectedRoute(){
 	var description = $("#RouteDes").empty();
+	var SelectedRoute;
 	//window.alert($("#SelectRoute option:selected").attr('label'));
-	var SelectedRoute = $("#SelectRoute option:selected").attr('label');
+	if($.browser.mozilla)
+		SelectedRoute = $("#SelectRoute option:selected").attr('label');
+	else
+		SelectedRoute = $("#SelectRoute option:selected").val();
+
 	var SelectedRouteID = $("#SelectRoute option:selected").attr('value');
 
 	if(SelectedRoute !== undefined && description !== undefined){
