@@ -90,7 +90,7 @@ function SetSelectedRoute(){
 	if($.browser.mozilla)
 		SelectedRoute = $("#SelectRoute option:selected").attr('label');
 	else
-		SelectedRoute = $("#SelectRoute option:selected").val();
+		SelectedRoute = $("#SelectRoute option:selected").text();
 
 	var SelectedRouteID = $("#SelectRoute option:selected").attr('value');
 
