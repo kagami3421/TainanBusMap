@@ -6,13 +6,16 @@ var routeJsonExtension = ".json";
 var map = L.map('map').setView([23.1852, 120.4287], 11);
 
 $( document ).ready(function() {
-	//ShowOptions
-	InitCategories();
+
+	$('select').selectpicker();
 
 	//Render Map
 	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     	attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 	}).addTo(map);
+
+	//ShowOptions
+	InitCategories();
 
 	$('#SelectCategory').change(function(){
      	ChangeCategory();
@@ -45,6 +48,8 @@ function InitCategories()
 			LineColor.push(item.categoryLineColor);
 		});
 
+		$('#SelectCategory').selectpicker('refresh');
+
 		//Init Default Route List
 		SetRoutesList(1);                      
 	});
@@ -76,6 +81,7 @@ function SetRoutesList(id){
 				routeList.append($('<option></option>').text(item.RouteFromTo).attr('value', item.RouteOSMRelation).attr('label', item.RouteName));
 		});
 
+		$('#SelectRoute').selectpicker('refresh');
 
 		SetSelectedRoute();
 	});

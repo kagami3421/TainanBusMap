@@ -4,5 +4,12 @@
 		"RouteFromTo":"台南─新化─玉井",
 		"RouteOSMRelation":3905751,
 		"RouteCode":1100
+	},
+	{
+		"RouteName":"綠17",
+		"RouteFromTo":"安工區─大灣─新化",
+		"RouteOSMRelation":4051250,
+		"RouteCode":1117
 	}
+	
 ]
