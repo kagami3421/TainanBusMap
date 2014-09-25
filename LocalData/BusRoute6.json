@@ -3,6 +3,12 @@
 		"RouteName":"橘幹線",
 		"RouteFromTo":"佳里─麻豆─善化─玉井",
 		"RouteOSMRelation":3916164,
-		"RouteCode":1100
+		"RouteCode":1400
+	},
+	{
+		"RouteName":"橘20",
+		"RouteFromTo":"大內公所─環湖─玉井",
+		"RouteOSMRelation":4061052,
+		"RouteCode":1420
 	}
 ]

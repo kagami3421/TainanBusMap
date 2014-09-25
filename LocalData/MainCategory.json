@@ -2,46 +2,55 @@
 	{
 		"categoryIndex":1,
 		"categoryName":"市區公車",
-		"categoryLineColor":"#9900CC"
+		"categoryLineColor":"#9900CC",
+		"categoryLineColor2":"#D699EB"
 	},
 	{
 		"categoryIndex":2,
 		"categoryName":"紅幹線",
-		"categoryLineColor":"#FF3030"
+		"categoryLineColor":"#FF3030",
+		"categoryLineColor2":"#FF3030"
 	},
 	{
 		"categoryIndex":3,
 		"categoryName":"藍幹線",
-		"categoryLineColor":"#0000FF"
+		"categoryLineColor":"#0000FF",
+		"categoryLineColor2":"#0000FF"
 	},
 	{
 		"categoryIndex":4,
 		"categoryName":"綠幹線",
-		"categoryLineColor":"#006600"
+		"categoryLineColor":"#006600",
+		"categoryLineColor2":"#006600"
 	},
 	{
 		"categoryIndex":5,
 		"categoryName":"棕幹線",
-		"categoryLineColor":"#993300"
+		"categoryLineColor":"#993300",
+		"categoryLineColor2":"#993300"
 	},
 	{
 		"categoryIndex":6,
 		"categoryName":"橘幹線",
-		"categoryLineColor":"#FF3300"
+		"categoryLineColor":"#FF3300",
+		"categoryLineColor2":"#FF3300"
 	},
 	{
 		"categoryIndex":7,
 		"categoryName":"黃幹線",
-		"categoryLineColor":"#FFCC00"
+		"categoryLineColor":"#FFCC00",
+		"categoryLineColor2":"#FFCC00"
 	},
 	{
 		"categoryIndex":8,
 		"categoryName":"觀光公車",
-		"categoryLineColor":"#4C4C4C"
+		"categoryLineColor":"#4C4C4C",
+		"categoryLineColor2":"#4C4C4C"
 	},
 	{
 		"categoryIndex":9,
 		"categoryName":"高鐵快捷公車",
-		"categoryLineColor":"#4C4C4C"
+		"categoryLineColor":"#4C4C4C",
+		"categoryLineColor2":"#4C4C4C"
 	}
 ]

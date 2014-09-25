@@ -13,6 +13,8 @@
     <!-- <link href="css/bootstrap-theme.min.css" rel="stylesheet"> -->
     <link href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" rel="stylesheet" />
+    <link href="css/MarkerCluster.css" rel="stylesheet" />
+    <link href="css/MarkerCluster.Default.css" rel="stylesheet" />
     <!-- <link type="text/css" rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" /> -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -59,8 +61,18 @@
                 </li>
                 <li>
                     <p>路線起終點:
-                        <span class="label label-primary" id="RouteDes"></span>
+                        <h4><span class="label label-primary" id="RouteDes"></span></h4>
                     </p>
+                </li>
+                <li>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-primary active">
+                            <input type="radio" name="dirctions" value="forward" checked><p>往程</p>
+                        </label>
+                        <label class="btn btn-primary">
+                            <input type="radio" name="dirctions" value="backward"><p>返程</p>
+                        </label>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -179,8 +191,9 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-    <script src="TainanBusRender.js"></script>
+    <script src="js/leaflet.markercluster.js"></script>
     <script src="TainanBus.js"></script>
+    <script src="TainanBusRender.js"></script>
 </body>
 
 </html>

@@ -6,376 +6,378 @@ var FullQuery = "/full";
 var BusIcon = "Icons/busIcon";
 var BusIcon_Ext = ".png";
 
+//Collect All Markers and Lines
 var RouteLayers = [];
 
-var currentLineColor;
+var currentColorScheme;
 var currentBusMarker;
+var ColorSchemeCollect = [];
 
-var LineColor = [];
-
-var BusRouteLineOptions;
+var BusMainRouteLineOptions;
+var BusExtendRouteLineOptions;
 
 var BusIconOptions = [];
 
 var IconTemplate = L.Icon.extend({
-	options: {
-		iconSize: [20 , 20],
-		iconAnchor: [10, 10]
-	}
+    options: {
+        iconSize: [20, 20],
+        iconAnchor: [10, 10]
+    }
 });
 
-function InitAllIconsOption(value){
-	var tmpIcon = new IconTemplate({iconUrl: BusIcon + value + BusIcon_Ext});
+function InitAllIconsOption(value) {
+    var tmpIcon = new IconTemplate({
+        iconUrl: BusIcon + value + BusIcon_Ext
+    });
 
-	BusIconOptions.push(tmpIcon);
+    BusIconOptions.push(tmpIcon);
 }
 
-function InitLeafletOptions(id){
+function InitLeafletOptions(id) {
 
-	currentBusMarker = BusIconOptions[id - 1];
+    currentBusMarker = BusIconOptions[id - 1];
 
-	BusRouteLineOptions = {
-	color : currentLineColor,
-	opacity : 1,
-	clickable : false
-	};
+    BusMainRouteLineOptions = {
+        color: currentColorScheme.MainLineColor,
+        opacity: 1,
+        clickable: false
+    };
+
+    BusExtendRouteLineOptions = {
+        color: currentColorScheme.ExtendLineColor,
+        opacity: 1,
+        clickable: false
+    }
 }
 
-function DownloadRouteMaster(id){
+function DownloadRouteMaster(id, dir) {
 
 
-	//Remove all lines and markers
-	if(RouteLayers.length > 0){
-		for (var i = 0; i < RouteLayers.length; i++) {
-			RouteLayers[i].clearLayers();
-		};
-	}
+    //Remove all lines and markers
+    if (RouteLayers.length > 0) {
+        for (var i = 0; i < RouteLayers.length; i++) {
+            RouteLayers[i].clearLayers();
+        };
+    }
 
-	$.ajax({
-  		url: OSMAPIUrl + id,
-  		dataType: "xml",
-  		success: function (xml) {
-    		var relations = new L.OSM.getRouteMaster(xml);
-    		
-    		for (var i = 0; i < relations.length; i++) {
-    			//window.alert(relations[i]);
-    			RenderRoute(relations[i]);
-    		};
+    $.ajax({
+        url: OSMAPIUrl + id,
+        dataType: "xml",
+        success: function(xml) {
+            currentRouteRelation = new L.OSM.getRoutesInMaster(xml);
 
-    		//window.alert(RouteLayers.length);
-  		}
-	});
+            for (var i = 0; i < currentRouteRelation.length; i++) {
+                if (currentRouteRelation[i].Direction === dir)
+                    RenderRoute(currentRouteRelation[i].Ref, currentRouteRelation[i].Extend);
+            };
+        }
+    });
 }
 
-function RenderRoute(id){
+function RenderRoute(id, isExtend) {
 
-	$.ajax({
-  		url: OSMAPIUrl + id + FullQuery,
-  		dataType: "xml",
-  		success: function (xml) {
-  			//window.alert(map);
-    		var layer = new L.OSM.DataLayer(xml).addTo(map);
-    		map.fitBounds(layer.getBounds());
+    $.ajax({
+        url: OSMAPIUrl + id + FullQuery,
+        dataType: "xml",
+        success: function(xml) {
+            //window.alert(map);
+            var layer = new L.OSM.DataLayer(xml, isExtend).addTo(map);
+            map.fitBounds(layer.getBounds());
 
-    		RouteLayers.push(layer);
+            //console.log(isExtend);
 
-    		//window.alert(RouteLayers.length);
-  		}
-	});
+            RouteLayers.push(layer);
+
+            //window.alert(RouteLayers.length);
+        }
+    });
 }
 
 L.OSM.DataLayer = L.FeatureGroup.extend({
-  options: {
-    //areaTags: ['area', 'building', 'leisure', 'tourism', 'ruins', 'historic', 'landuse', 'military', 'natural', 'sport'],
-    uninterestingTags: ['source', 'source_ref', 'source:ref', 'history', 'attribution', 'created_by', 'tiger:county', 'tiger:tlid', 'tiger:upload_uuid'],
-    styles: {}
-  },
+    options: {
+        //areaTags: ['area', 'building', 'leisure', 'tourism', 'ruins', 'historic', 'landuse', 'military', 'natural', 'sport'],
+        uninterestingTags: ['source', 'source_ref', 'source:ref', 'history', 'attribution', 'created_by', 'tiger:county', 'tiger:tlid', 'tiger:upload_uuid'],
+        styles: {}
+    },
 
-  initialize: function (xml, options) {
-    L.Util.setOptions(this, options);
+    initialize: function(xml, isExtend, options) {
+        L.Util.setOptions(this, options);
 
-    L.FeatureGroup.prototype.initialize.call(this);
+        //console.log(isExtend);
 
-    if (xml) {
-      this.addData(xml);
-    }
-  },
+        L.FeatureGroup.prototype.initialize.call(this);
 
-  addData: function (features) {
-    if (!(features instanceof Array)) {
-      features = this.buildFeatures(features);
-    }
+        if (xml) {
+            this.addData(xml, isExtend);
+        }
+    },
 
-    for (var i = 0; i < features.length; i++) {
-      var feature = features[i], layer;
+    addData: function(features, isExtend) {
 
-      /*if (feature.type === "changeset") {
-        layer = L.rectangle(feature.latLngBounds, this.options.styles.changeset);
-      } else */
-      if (feature.type === "node") {
-        //layer = L.circleMarker(feature.latLng, this.options.styles.node);
-        //if(this.isBusStop(feature))
-        	//layer = L.marker(feature.latLng, this.options.styles.node);
-        	//var busIcon = new BusStopIcon();
-        	//console.log(CheckEnableBusStop());
-        	if(this.CheckEnableBusStop()){
-
-        		var MarkerOption = {
-        			icon : currentBusMarker , 
-        			opacity : 1 ,
-        			zIndexOffset : 1000 ,
-        			title : this.GetBusStopName(feature.tags)
-        		}
-
-        		layer = L.marker(feature.latLng , MarkerOption).bindPopup(this.GetBusStopName(feature.tags));
-        	}
-      } 
-      else
-      {
-        var latLngs = new Array(feature.nodes.length);
-
-        for (var j = 0; j < feature.nodes.length; j++) {
-          latLngs[j] = feature.nodes[j].latLng;
+        var MakerClusterOptions = {
+            showCoverageOnHover: false,
+            maxClusterRadius: 20
         }
 
-        /*if (this.isWayArea(feature)) {
-          latLngs.pop(); // Remove last == first.
-          layer = L.polygon(latLngs, this.options.styles.area);
-        } 
-        else {*/
-          layer = L.polyline(latLngs, BusRouteLineOptions);
-        //}
-      }
+        var markers = new L.MarkerClusterGroup(MakerClusterOptions);
 
-      if(layer !== undefined){
-      		layer.addTo(this);
-      	layer.feature = feature;
-      }
+        if (!(features instanceof Array)) {
+            features = this.buildFeatures(features);
+        }
+
+        for (var i = 0; i < features.length; i++) {
+            var feature = features[i],
+                layer;
+
+            /*if (feature.type === "changeset") {
+        layer = L.rectangle(feature.latLngBounds, this.options.styles.changeset);
+      } else */
+            if (feature.type === "node") {
+                //layer = L.circleMarker(feature.latLng, this.options.styles.node);
+                //if(this.isBusStop(feature))
+                //layer = L.marker(feature.latLng, this.options.styles.node);
+                //var busIcon = new BusStopIcon();
+                //console.log(CheckEnableBusStop());
+                if (this.CheckEnableBusStop()) {
+
+                    var MarkerOption = {
+                        icon: currentBusMarker,
+                        opacity: 1,
+                        zIndexOffset: 1000,
+                        title: this.GetBusStopName(feature.tags)
+                    }
+
+                    //layer = L.marker(feature.latLng , MarkerOption).bindPopup(this.GetBusStopName(feature.tags));
+                    markers.addLayer(L.marker(feature.latLng, MarkerOption).bindPopup(this.GetBusStopName(feature.tags)));
+                }
+            } else {
+                var latLngs = new Array(feature.nodes.length);
+
+                for (var j = 0; j < feature.nodes.length; j++) {
+                    latLngs[j] = feature.nodes[j].latLng;
+                }
+
+                if (isExtend == false)
+                    layer = L.polyline(latLngs, BusMainRouteLineOptions);
+                else
+                    layer = L.polyline(latLngs, BusExtendRouteLineOptions);
+            }
+
+            if (layer !== undefined) {
+                layer.addTo(this);
+                layer.feature = feature;
+            }
+        }
+
+        if (markers !== undefined)
+            markers.addTo(this);
+    },
+
+    buildFeatures: function(xml) {
+        var features = [] /* = L.OSM.getChangesets(xml)*/ ,
+            nodes = L.OSM.getNodes(xml),
+            ways = L.OSM.getWays(xml, nodes),
+            relations = L.OSM.getRelations(xml, nodes, ways);
+
+        for (var node_id in nodes) {
+            var node = nodes[node_id];
+            if (this.isBusStop(node)) {
+                features.push(node);
+            }
+        }
+
+        for (var i = 0; i < ways.length; i++) {
+            var way = ways[i];
+            features.push(way);
+        }
+
+        return features;
+    },
+
+    isBusStop: function(node) {
+        var bIsBusStop = false;
+
+        for (var key in node.tags) {
+            if (node.tags[key] == "bus_stop") {
+                bIsBusStop = true;
+                break;
+            }
+        }
+
+        //window.alert(bIsBusStop);
+
+        return bIsBusStop;
+    },
+
+    CheckEnableBusStop: function() {
+
+        var checked = false;
+        var checkedElement = $("#ShowBusStop:checked");
+
+        if (checkedElement.length > 0)
+            checked = true;
+
+        return checked;
+    },
+
+    GetBusStopName: function(tags) {
+        var Name;
+
+        for (var key in tags) {
+            if (key == "name") {
+                Name = tags[key];
+                break;
+            }
+            //console.log(key);
+        }
+
+        return Name;
     }
-  },
 
-  buildFeatures: function (xml) {
-    var features = []/* = L.OSM.getChangesets(xml)*/,
-      nodes = L.OSM.getNodes(xml),
-      ways = L.OSM.getWays(xml, nodes),
-      relations = L.OSM.getRelations(xml, nodes, ways);
-
-    for (var node_id in nodes) {
-      var node = nodes[node_id];
-      if (this.isBusStop(node)) {
-        features.push(node);
-      }
-    }
-
-    for (var i = 0; i < ways.length; i++) {
-      var way = ways[i];
-      features.push(way);
-    }
-
-    return features;
-  },
-
-  /*isWayArea: function (way) {
-    if (way.nodes[0] != way.nodes[way.nodes.length - 1]) {
-      return false;
-    }
-
-    for (var key in way.tags) {
-      if (~this.options.areaTags.indexOf(key)) {
-        return true;
-      }
-    }
-
-    return false;
-  },*/
-
-  isBusStop:function (node) {
-  	var bIsBusStop = false;
-
-  	for(var key in node.tags){
-  		if(node.tags[key] == "bus_stop"){
-  			bIsBusStop = true;
-  			break;
-  		}
-  	}
-
-  	//window.alert(bIsBusStop);
-
-  	return bIsBusStop;
-  },
-
-  CheckEnableBusStop:function (){
-
-	var checked = false;
-	var checkedElement = $("#ShowBusStop:checked");
-
-	if(checkedElement.length > 0)
-		checked = true;
-
-	return checked;
-  },
-
-  GetBusStopName : function(tags){
-  	var Name;
-
-  	for(var key in tags){
-  		if(key == "name"){
-  			Name = tags[key];
-  			break;
-  		}
-  		//console.log(key);
-  	}
-
-  	return Name;
-  }
-
-  /*interestingNode: function (node, ways, relations) {
-    var used = false;
-
-    for (var i = 0; i < ways.length; i++) {
-      if (ways[i].nodes.indexOf(node) >= 0) {
-        used = true;
-        break;
-      }
-    }
-
-    if (!used) {
-      return true;
-    }
-
-    for (var i = 0; i < relations.length; i++) {
-      if (relations[i].members.indexOf(node) >= 0)
-        return true;
-    }
-
-    for (var key in node.tags) {
-      if (this.options.uninterestingTags.indexOf(key) < 0) {
-        return true;
-      }
-    }
-
-    return false;
-  }*/
 });
 
 L.Util.extend(L.OSM, {
-  /*getChangesets: function (xml) {
-    var result = [];
 
-    var nodes = xml.getElementsByTagName("changeset");
-    for (var i = 0; i < nodes.length; i++) {
-      var node = nodes[i], id = node.getAttribute("id");
-      result.push({
-        id: id,
-        type: "changeset",
-        latLngBounds: L.latLngBounds(
-          [node.getAttribute("min_lat"), node.getAttribute("min_lon")],
-          [node.getAttribute("max_lat"), node.getAttribute("max_lon")]),
-        tags: this.getTags(node)
-      });
+    getNodes: function(xml) {
+        var result = {};
+
+        var nodes = xml.getElementsByTagName("node");
+        for (var i = 0; i < nodes.length; i++) {
+            var node = nodes[i],
+                id = node.getAttribute("id");
+            result[id] = {
+                id: id,
+                type: "node",
+                latLng: L.latLng(node.getAttribute("lat"),
+                    node.getAttribute("lon"),
+                    true),
+                tags: this.getTags(node)
+            };
+        }
+
+        return result;
+    },
+
+    getWays: function(xml, nodes) {
+        var result = [];
+
+        var ways = xml.getElementsByTagName("way");
+        for (var i = 0; i < ways.length; i++) {
+            var way = ways[i],
+                nds = way.getElementsByTagName("nd");
+
+            var way_object = {
+                id: way.getAttribute("id"),
+                type: "way",
+                nodes: new Array(nds.length),
+                tags: this.getTags(way)
+            };
+
+            for (var j = 0; j < nds.length; j++) {
+                way_object.nodes[j] = nodes[nds[j].getAttribute("ref")];
+            }
+
+            result.push(way_object);
+        }
+
+        return result;
+    },
+
+    getRoutesInMaster: function(xml) {
+        var results = [];
+
+        var rels = xml.getElementsByTagName("relation");
+        for (var i = 0; i < rels.length; i++) {
+            //Get all members
+            var rel = rels[i];
+            var members = rel.getElementsByTagName("member");
+
+            for (var j = 0; j < members.length; j++) {
+                if (members[j].getAttribute("type") === "relation") {
+
+                    var ExtendBool = false;
+                    var Dir = "forward";
+
+                    switch (members[j].getAttribute("role")) {
+                        case "forward":
+                            {
+                                Dir = true;
+                                ExtendBool = false;
+                            }
+                            break;
+
+                        case "backward":
+                            {
+                                Dir = false;
+                                ExtendBool = false;
+                            }
+                            break;
+
+                        case "forward_extend":
+                            {
+                                Dir = true;
+                                ExtendBool = true;
+                            }
+                            break;
+
+                        case "backward_extend":
+                            {
+                                Dir = false;
+                                ExtendBool = true;
+                            }
+                            break;
+                    }
+
+                    var SingleResult = {
+                        Ref: members[j].getAttribute("ref"),
+                        Extend: ExtendBool,
+                        Direction: Dir
+                    }
+
+                    results.push(SingleResult);
+                }
+            }
+        }
+        
+        return results;
+    },
+
+    getRelations: function(xml, nodes, ways) {
+        var result = [];
+
+        var rels = xml.getElementsByTagName("relation");
+        for (var i = 0; i < rels.length; i++) {
+            var rel = rels[i],
+                members = rel.getElementsByTagName("member");
+
+            var rel_object = {
+                id: rel.getAttribute("id"),
+                type: "relation",
+                members: new Array(members.length),
+                tags: this.getTags(rel)
+            };
+
+            for (var j = 0; j < members.length; j++) {
+                if (members[j].getAttribute("type") === "node")
+                    rel_object.members[j] = nodes[members[j].getAttribute("ref")];
+                else // relation-way and relation-relation membership not implemented
+                    rel_object.members[j] = null;
+            }
+
+            result.push(rel_object);
+        }
+
+        return result;
+    },
+
+    getTags: function(xml) {
+        var result = {};
+
+        var tags = xml.getElementsByTagName("tag");
+        for (var j = 0; j < tags.length; j++) {
+            result[tags[j].getAttribute("k")] = tags[j].getAttribute("v");
+        }
+
+        return result;
     }
-
-    return result;
-  },*/
-
-  getNodes: function (xml) {
-    var result = {};
-
-    var nodes = xml.getElementsByTagName("node");
-    for (var i = 0; i < nodes.length; i++) {
-      var node = nodes[i], id = node.getAttribute("id");
-      result[id] = {
-        id: id,
-        type: "node",
-        latLng: L.latLng(node.getAttribute("lat"),
-                         node.getAttribute("lon"),
-                         true),
-        tags: this.getTags(node)
-      };
-    }
-
-    return result;
-  },
-
-  getWays: function (xml, nodes) {
-    var result = [];
-
-    var ways = xml.getElementsByTagName("way");
-    for (var i = 0; i < ways.length; i++) {
-      var way = ways[i], nds = way.getElementsByTagName("nd");
-
-      var way_object = {
-        id: way.getAttribute("id"),
-        type: "way",
-        nodes: new Array(nds.length),
-        tags: this.getTags(way)
-      };
-
-      for (var j = 0; j < nds.length; j++) {
-        way_object.nodes[j] = nodes[nds[j].getAttribute("ref")];
-      }
-
-      result.push(way_object);
-    }
-
-    return result;
-  },
-  
-  getRouteMaster : function (xml){
-  	var result = [];
-
-  	var rels = xml.getElementsByTagName("relation");
-  	for (var i = 0; i < rels.length; i++) {
-      //Get all members
-      var rel = rels[i];
-      var members = rel.getElementsByTagName("member");
-
-      for (var j = 0; j < members.length; j++) {
-        if (members[j].getAttribute("type") === "relation")
-          var singleRouteRef = members[j].getAttribute("ref");
-
-      	  result.push(singleRouteRef);
-      }
-    }
-
-    return result;
-  },
-
-  getRelations: function (xml, nodes, ways) {
-    var result = [];
-
-    var rels = xml.getElementsByTagName("relation");
-    for (var i = 0; i < rels.length; i++) {
-      var rel = rels[i], members = rel.getElementsByTagName("member");
-
-      var rel_object = {
-        id: rel.getAttribute("id"),
-        type: "relation",
-        members: new Array(members.length),
-        tags: this.getTags(rel)
-      };
-
-      for (var j = 0; j < members.length; j++) {
-        if (members[j].getAttribute("type") === "node")
-          rel_object.members[j] = nodes[members[j].getAttribute("ref")];
-        else // relation-way and relation-relation membership not implemented
-          rel_object.members[j] = null;
-      }
-
-      result.push(rel_object);
-    }
-
-    return result;
-  },
-
-  getTags: function (xml) {
-    var result = {};
-
-    var tags = xml.getElementsByTagName("tag");
-    for (var j = 0; j < tags.length; j++) {
-      result[tags[j].getAttribute("k")] = tags[j].getAttribute("v");
-    }
-
-    return result;
-  }
 });

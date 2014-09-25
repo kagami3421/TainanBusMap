@@ -6,6 +6,12 @@
 		"RouteCode":1100
 	},
 	{
+		"RouteName":"綠16",
+		"RouteFromTo":"新化 ─ 關廟",
+		"RouteOSMRelation":4060903,
+		"RouteCode":1116
+	},
+	{
 		"RouteName":"綠17",
 		"RouteFromTo":"安工區─大灣─新化",
 		"RouteOSMRelation":4051250,

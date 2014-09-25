@@ -14,43 +14,49 @@
 	{
 		"RouteName":"紅2",
 		"RouteFromTo":"火車站─仁德─上崙子─關廟",
-		"RouteOSMRelation":4019261,
+		"RouteOSMRelation":4053448,
 		"RouteCode":1602
 	},
 	{
 		"RouteName":"紅3",
 		"RouteFromTo":"火車站─高鐵台南站─關廟",
-		"RouteOSMRelation":4019261,
+		"RouteOSMRelation":4058217,
 		"RouteCode":1603
+	},
+	{
+		"RouteName":"紅4",
+		"RouteFromTo":"火車站─臺南都會公園",
+		"RouteOSMRelation":4055900,
+		"RouteCode":1604
 	},
 	{
 		"RouteName":"紅10",
 		"RouteFromTo":"關廟─奇美醫院",
-		"RouteOSMRelation":4019261,
-		"RouteCode":1604
+		"RouteOSMRelation":4056199,
+		"RouteCode":1610
 	},
 	{
 		"RouteName":"紅11",
 		"RouteFromTo":"關廟─龍崎─牛埔農塘",
-		"RouteOSMRelation":4019261,
-		"RouteCode":1604
+		"RouteOSMRelation":4055682,
+		"RouteCode":1611
 	},
 	{
 		"RouteName":"紅12",
 		"RouteFromTo":"關廟─龍崎─烏山頭",
-		"RouteOSMRelation":4019261,
-		"RouteCode":1604
+		"RouteOSMRelation":4055683,
+		"RouteCode":1612
 	},
 	{
 		"RouteName":"紅13",
 		"RouteFromTo":"關廟─阿蓮",
-		"RouteOSMRelation":4019261,
-		"RouteCode":1604
+		"RouteOSMRelation":4053990,
+		"RouteCode":1613
 	},
 	{
 		"RouteName":"紅14",
 		"RouteFromTo":"關廟─歸仁─高鐵台南站",
-		"RouteOSMRelation":4019261,
-		"RouteCode":1604
+		"RouteOSMRelation":4055796,
+		"RouteCode":1614
 	}
 ]

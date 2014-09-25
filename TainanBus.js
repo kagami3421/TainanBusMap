@@ -5,6 +5,9 @@ var routeJsonExtension = ".json";
 
 var map = L.map('map').setView([23.1852, 120.4287], 11);
 
+var currentRouteRelation;
+var currentSelectedRoute;
+
 $( document ).ready(function() {
 
 	$('select').selectpicker();
@@ -23,6 +26,11 @@ $( document ).ready(function() {
 
     $('#SelectRoute').change(function(){
      	SetSelectedRoute();
+    });
+
+    $('input[name="dirctions"]:radio').change(function(){
+     	SetSelectDirection();
+     	//console.log("Change!");
     });
 
     $("#menu-toggle").click(function(e) {
@@ -45,7 +53,11 @@ function InitCategories()
 			//window.alert(RouteColorSettings["LineColor"]);
 			InitAllIconsOption(item.categoryIndex);
 			//Save Color Setting
-			LineColor.push(item.categoryLineColor);
+			var ColorScheme = {
+				MainLineColor: item.categoryLineColor,
+				ExtendLineColor: item.categoryLineColor2
+			}
+			ColorSchemeCollect.push(ColorScheme);
 		});
 
 		$('#SelectCategory').selectpicker('refresh');
@@ -66,7 +78,7 @@ function ChangeCategory(){
 function SetRoutesList(id){
 	var routeList = $("#SelectRoute").empty();
 
-	currentLineColor = LineColor[id - 1];
+	currentColorScheme = ColorSchemeCollect[id - 1];
 
 	//console.log(currentLineColor);
 
@@ -96,11 +108,20 @@ function SetSelectedRoute(){
 	else
 		SelectedRoute = $("#SelectRoute option:selected").text();
 
-	var SelectedRouteID = $("#SelectRoute option:selected").attr('value');
+	currentSelectedRoute = $("#SelectRoute option:selected").attr('value');
 
 	if(SelectedRoute !== undefined && description !== undefined){
 		description.text(SelectedRoute);
 		//window.alert(SelectedRouteID);
-		DownloadRouteMaster(SelectedRouteID);
+		SetSelectDirection();
 	}
+}
+
+function SetSelectDirection(){
+	var dir = $('input[name="dirctions"]:checked').val();
+
+	if(dir == "forward")
+		DownloadRouteMaster(currentSelectedRoute , true);
+	else
+		DownloadRouteMaster(currentSelectedRoute , false);
 }
