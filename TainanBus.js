@@ -107,9 +107,9 @@ function SetSelectedRoute() {
     var SelectedRoute;
     //window.alert($("#SelectRoute option:selected").attr('label'));
     if (L.Browser.webkit || L.Browser.ie)
-        SelectedRoute = $("#SelectRoute option:selected").attr('label');
-    else
         SelectedRoute = $("#SelectRoute option:selected").text();
+    else
+        SelectedRoute = $("#SelectRoute option:selected").attr('label');
 
     currentSelectedRoute = $("#SelectRoute option:selected").attr('value');
 
