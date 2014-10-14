@@ -90,7 +90,7 @@ function SetRoutesList(id) {
 
     $.getJSON(routeJsonUrl + id + routeJsonExtension, function(data) {
         $.each(data, function(i, item) {
-            if (L.Browser.webkit || L.Browser.ie)
+            if (L.Browser.webkit === true || L.Browser.ie  === true)
                 routeList.append($('<option></option>').text(item.RouteFromTo).attr('value', item.RouteOSMRelation).attr('label', item.RouteName));
             else
                 routeList.append($('<option></option>').text(item.RouteName).attr('value', item.RouteOSMRelation).attr('label', item.RouteFromTo));
@@ -106,7 +106,7 @@ function SetSelectedRoute() {
     var description = $("#RouteDes").empty();
     var SelectedRoute;
     //window.alert($("#SelectRoute option:selected").attr('label'));
-    if (L.Browser.webkit || L.Browser.ie)
+    if (L.Browser.webkit  === true || L.Browser.ie  === true)
         SelectedRoute = $("#SelectRoute option:selected").text();
     else
         SelectedRoute = $("#SelectRoute option:selected").attr('label');
