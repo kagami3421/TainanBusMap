@@ -1,4 +1,4 @@
-L.OSM = {};
+L.TainanBus = {};
 
 var OSMAPIUrl = "http://api.openstreetmap.org/api/0.6/relation/";
 var FullQuery = "/full";
@@ -7,25 +7,25 @@ var BusIcon = "Icons/busIcon";
 var BusIcon_Ext = ".png";
 
 //Collect All Markers and Lines
-var RouteLayers = [];
+//var RouteLayers = [];
 
 var currentColorScheme;
-var currentBusMarker;
+//var currentBusMarker;
 var ColorSchemeCollect = [];
 
-var BusMainRouteLineOptions;
-var BusExtendRouteLineOptions;
+//var BusMainRouteLineOptions;
+//var BusExtendRouteLineOptions;
 
-var BusIconOptions = [];
+//var BusIconOptions = [];
 
-var IconTemplate = L.Icon.extend({
+L.TainanBus.IconTemplate = L.Icon.extend({
     options: {
         iconSize: [20, 20],
         iconAnchor: [10, 10]
     }
 });
 
-function InitAllIconsOption(value) {
+/* function InitAllIconsOption(value) {
     var tmpIcon = new IconTemplate({
         iconUrl: BusIcon + value + BusIcon_Ext
     });
@@ -60,16 +60,44 @@ function DownloadRouteMaster(id, dir) {
         };
     }
 
+    //Open Loading Mask
+    $('#map').block({
+        message: '<h1>載入中...</h1>',
+        css: {
+            border: 'none',
+            padding: '15px',
+            backgroundColor: '#000',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+            'border-radius': '10px',
+            opacity: .5,
+            color: '#fff'
+        }
+    });
+
     $.ajax({
         url: OSMAPIUrl + id,
         dataType: "xml",
         success: function(xml) {
-            currentRouteRelation = new L.OSM.getRoutesInMaster(xml);
+            currentRouteRelation = new L.TainanBus.getRoutesInMaster(xml);
+
+            var loop = 0; //Check Dir is null or not
 
             for (var i = 0; i < currentRouteRelation.length; i++) {
-                if (currentRouteRelation[i].Direction === dir)
+                if (currentRouteRelation[i].Direction === dir) {
                     RenderRoute(currentRouteRelation[i].Ref, currentRouteRelation[i].Extend);
+                    loop++;
+                }
             };
+
+            //Close Loading Mask
+            $('#map').unblock();
+
+            if (loop == 0)
+                bootbox.alert("此路線為單向行駛!");
+        },
+        error: function() {
+            bootbox.alert("資料載入失敗!");
         }
     });
 }
@@ -80,39 +108,160 @@ function RenderRoute(id, isExtend) {
         url: OSMAPIUrl + id + FullQuery,
         dataType: "xml",
         success: function(xml) {
+
             //window.alert(map);
-            var layer = new L.OSM.DataLayer(xml, isExtend).addTo(map);
-            map.fitBounds(layer.getBounds());
+            var layer = new L.TainanBus.DataLayer(xml, isExtend).addTo(map);
+            //map.fitBounds(layer.getBounds());
 
             //console.log(isExtend);
 
             RouteLayers.push(layer);
 
             //window.alert(RouteLayers.length);
+        },
+        error: function() {
+            bootbox.alert("資料載入失敗!");
         }
     });
-}
+}*/
 
-L.OSM.DataLayer = L.FeatureGroup.extend({
+L.TainanBus.RenderManager = L.Class.extend({
+    initialize: function() {
+        this._RouteLayers = [];
+
+        this._BusMainRouteLineOptions = {};
+        this._BusExtendRouteLineOptions = {};
+        this._BusIconOptions = [];
+
+        this._currentBusMarker = null;
+    },
+
+    InitAllIconsOption: function(value) {
+        var tmpIcon = new L.TainanBus.IconTemplate({
+            iconUrl: BusIcon + value + BusIcon_Ext
+        });
+
+        this._BusIconOptions.push(tmpIcon);
+    },
+
+    InitLeafletOptions: function(id) {
+
+        this._currentBusMarker = this._BusIconOptions[id - 1];
+
+        this._BusMainRouteLineOptions = {
+            color: currentColorScheme.MainLineColor,
+            opacity: 1,
+            clickable: false
+        };
+
+        this._BusExtendRouteLineOptions = {
+            color: currentColorScheme.ExtendLineColor,
+            opacity: 1,
+            clickable: false
+        }
+    },
+
+    DownloadRouteMaster: function(id, dir) {
+
+        //Remove all lines and markers
+        if (this._RouteLayers.length > 0) {
+            for (var i = 0; i < this._RouteLayers.length; i++) {
+                this._RouteLayers[i].clearLayers();
+            };
+        }
+
+        var _thisClass = this;
+
+        //Open Loading Mask
+        $.blockUI({
+            message: '<h1>載入中...</h1>',
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                'border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            }
+        });
+
+        $.ajax({
+            url: OSMAPIUrl + id,
+            dataType: "xml",
+            success: function(xml){
+                currentRouteRelation = new L.TainanBus.getRoutesInMaster(xml);
+
+                var loop = 0; //Check Dir is null or not
+
+                for (var i = 0; i < currentRouteRelation.length; i++) {
+                    if (currentRouteRelation[i].Direction === dir) {
+                        _thisClass.RenderRoute(currentRouteRelation[i].Ref, currentRouteRelation[i].Extend);
+                        loop++;
+                    }
+                };
+
+                //Close Loading Mask
+                $.unblockUI();
+
+                if (loop == 0)
+                    bootbox.alert("此路線為單向行駛!");
+            },
+            error: function() {
+                bootbox.alert("資料載入失敗!");
+            }
+        });
+    },
+
+    RenderRoute: function(id, isExtend) {
+
+    	var _thisClass = this;
+
+        $.ajax({
+            url: OSMAPIUrl + id + FullQuery,
+            dataType: "xml",
+            success: function(xml) {
+
+                //window.alert(map);
+                var layer = new L.TainanBus.DataLayer(xml, isExtend , _thisClass).addTo(map);
+                //map.fitBounds(layer.getBounds());
+
+                //console.log(isExtend);
+
+                _thisClass._RouteLayers.push(layer);
+
+                //window.alert(RouteLayers.length);
+            },
+            error: function() {
+                bootbox.alert("資料載入失敗!");
+            }
+        });
+    }
+});
+
+L.TainanBus.DataLayer = L.FeatureGroup.extend({
     options: {
         //areaTags: ['area', 'building', 'leisure', 'tourism', 'ruins', 'historic', 'landuse', 'military', 'natural', 'sport'],
         uninterestingTags: ['source', 'source_ref', 'source:ref', 'history', 'attribution', 'created_by', 'tiger:county', 'tiger:tlid', 'tiger:upload_uuid'],
         styles: {}
     },
 
-    initialize: function(xml, isExtend, options) {
+    initialize: function(xml, isExtend , RenderManager , options) {
         L.Util.setOptions(this, options);
 
         //console.log(isExtend);
 
+        //console.log(RenderManager);
+
         L.FeatureGroup.prototype.initialize.call(this);
 
         if (xml) {
-            this.addData(xml, isExtend);
+            this.addData(xml, isExtend , RenderManager);
         }
     },
 
-    addData: function(features, isExtend) {
+    addData: function(features, isExtend , RenderManager) {
 
         var MakerClusterOptions = {
             showCoverageOnHover: false,
@@ -129,19 +278,11 @@ L.OSM.DataLayer = L.FeatureGroup.extend({
             var feature = features[i],
                 layer;
 
-            /*if (feature.type === "changeset") {
-        layer = L.rectangle(feature.latLngBounds, this.options.styles.changeset);
-      } else */
             if (feature.type === "node") {
-                //layer = L.circleMarker(feature.latLng, this.options.styles.node);
-                //if(this.isBusStop(feature))
-                //layer = L.marker(feature.latLng, this.options.styles.node);
-                //var busIcon = new BusStopIcon();
-                //console.log(CheckEnableBusStop());
                 if (this.CheckEnableBusStop()) {
 
                     var MarkerOption = {
-                        icon: currentBusMarker,
+                        icon: RenderManager._currentBusMarker,
                         opacity: 1,
                         zIndexOffset: 1000,
                         title: this.GetBusStopName(feature.tags)
@@ -158,9 +299,9 @@ L.OSM.DataLayer = L.FeatureGroup.extend({
                 }
 
                 if (isExtend == false)
-                    layer = L.polyline(latLngs, BusMainRouteLineOptions);
+                    layer = L.polyline(latLngs, RenderManager._BusMainRouteLineOptions);
                 else
-                    layer = L.polyline(latLngs, BusExtendRouteLineOptions);
+                    layer = L.polyline(latLngs, RenderManager._BusExtendRouteLineOptions);
             }
 
             if (layer !== undefined) {
@@ -174,10 +315,10 @@ L.OSM.DataLayer = L.FeatureGroup.extend({
     },
 
     buildFeatures: function(xml) {
-        var features = [] /* = L.OSM.getChangesets(xml)*/ ,
-            nodes = L.OSM.getNodes(xml),
-            ways = L.OSM.getWays(xml, nodes),
-            relations = L.OSM.getRelations(xml, nodes, ways);
+        var features = [],
+            nodes = L.TainanBus.getNodes(xml),
+            ways = L.TainanBus.getWays(xml, nodes),
+            relations = L.TainanBus.getRelations(xml, nodes, ways);
 
         for (var node_id in nodes) {
             var node = nodes[node_id];
@@ -236,7 +377,7 @@ L.OSM.DataLayer = L.FeatureGroup.extend({
 
 });
 
-L.Util.extend(L.OSM, {
+L.Util.extend(L.TainanBus, {
 
     getNodes: function(xml) {
         var result = {};
@@ -338,7 +479,7 @@ L.Util.extend(L.OSM, {
                 }
             }
         }
-        
+
         return results;
     },
 

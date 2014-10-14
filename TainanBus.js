@@ -5,123 +5,126 @@ var routeJsonExtension = ".json";
 
 var map = L.map('map').setView([23.1852, 120.4287], 11);
 
-var currentRouteRelation;
-var currentSelectedRoute;
+var currentRouteRelation; // Current Selected Route Array
+var currentSelectedRoute; // Current Selected Route Number
 
-$( document ).ready(function() {
+var RouteDownloadManager;
 
-	$('select').selectpicker();
+$(document).ready(function() {
 
-	//Render Map
-	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    	attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-	}).addTo(map);
+    $('select').selectpicker();
 
-	//ShowOptions
-	InitCategories();
+    //Render Map
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
-	$('#SelectCategory').change(function(){
-     	ChangeCategory();
+    //ShowOptions
+    InitCategories();
+
+    $('#SelectCategory').change(function() {
+        ChangeCategory();
     });
 
-    $('#SelectRoute').change(function(){
-     	SetSelectedRoute();
+    $('#SelectRoute').change(function() {
+        SetSelectedRoute();
     });
 
-    $('input[name="dirctions"]:radio').change(function(){
-     	SetSelectDirection();
-     	//console.log("Change!");
+    $('input[name="dirctions"]:radio').change(function() {
+        SetSelectDirection();
+        //console.log("Change!");
     });
 
     $("#menu-toggle").click(function(e) {
-		e.preventDefault();
-		$("#wrapper").toggleClass("toggled");
-	});
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
 });
 
 //Function Section-----------------------
-function InitCategories()
-{
-	$.getJSON(categoryJsonUrl + routeJsonExtension, function(data){
+function InitCategories() {
+    RouteDownloadManager = new L.TainanBus.RenderManager();
 
-		var categoryList = $("#SelectCategory").empty();
+    $.getJSON(categoryJsonUrl + routeJsonExtension, function(data) {
 
-		$.each(data, function (i, item){
-			//window.alert(item.categoryName);
-			categoryList.append($('<option></option>').text(item.categoryName).attr('value', item.categoryIndex));
+        var categoryList = $("#SelectCategory").empty();
 
-			//window.alert(RouteColorSettings["LineColor"]);
-			InitAllIconsOption(item.categoryIndex);
-			//Save Color Setting
-			var ColorScheme = {
-				MainLineColor: item.categoryLineColor,
-				ExtendLineColor: item.categoryLineColor2
-			}
-			ColorSchemeCollect.push(ColorScheme);
-		});
+        $.each(data, function(i, item) {
+            //window.alert(item.categoryName);
+            categoryList.append($('<option></option>').text(item.categoryName).attr('value', item.categoryIndex));
 
-		$('#SelectCategory').selectpicker('refresh');
+            //window.alert(RouteColorSettings["LineColor"]);
+            RouteDownloadManager.InitAllIconsOption(item.categoryIndex);
+            //Save Color Setting
+            var ColorScheme = {
+                MainLineColor: item.categoryLineColor,
+                ExtendLineColor: item.categoryLineColor2
+            }
+            ColorSchemeCollect.push(ColorScheme);
+        });
 
-		//Init Default Route List
-		SetRoutesList(1);                      
-	});
+        $('#SelectCategory').selectpicker('refresh');
+
+        //Init Default Route List
+        SetRoutesList(1);
+    });
 }
 
-function ChangeCategory(){
-	var SelectedId = $("#SelectCategory option:selected").attr('value');
-	if(SelectedId !== undefined){
-		//window.alert("Coming!");
-		SetRoutesList(SelectedId);
-	}
+function ChangeCategory() {
+    var SelectedId = $("#SelectCategory option:selected").attr('value');
+    if (SelectedId !== undefined) {
+        //window.alert("Coming!");
+        SetRoutesList(SelectedId);
+    }
 }
 
-function SetRoutesList(id){
-	var routeList = $("#SelectRoute").empty();
+function SetRoutesList(id) {
+    var routeList = $("#SelectRoute").empty();
 
-	currentColorScheme = ColorSchemeCollect[id - 1];
+    currentColorScheme = ColorSchemeCollect[id - 1];
 
-	//console.log(currentLineColor);
+    //console.log(currentLineColor);
 
-	//Change Color
-	InitLeafletOptions(id);
+    //Change Color
+    RouteDownloadManager.InitLeafletOptions(id);
 
-	$.getJSON(routeJsonUrl + id + routeJsonExtension, function(data){
-		$.each(data, function(i, item){
-			if($.browser.mozilla)
-				routeList.append($('<option></option>').text(item.RouteName).attr('value', item.RouteOSMRelation).attr('label', item.RouteFromTo));
-			else
-				routeList.append($('<option></option>').text(item.RouteFromTo).attr('value', item.RouteOSMRelation).attr('label', item.RouteName));
-		});
+    $.getJSON(routeJsonUrl + id + routeJsonExtension, function(data) {
+        $.each(data, function(i, item) {
+            if (L.Browser.webkit || L.Browser.ie)
+                routeList.append($('<option></option>').text(item.RouteFromTo).attr('value', item.RouteOSMRelation).attr('label', item.RouteName));
+            else
+                routeList.append($('<option></option>').text(item.RouteName).attr('value', item.RouteOSMRelation).attr('label', item.RouteFromTo));
+        });
 
-		$('#SelectRoute').selectpicker('refresh');
+        $('#SelectRoute').selectpicker('refresh');
 
-		SetSelectedRoute();
-	});
+        SetSelectedRoute();
+    });
 }
 
-function SetSelectedRoute(){
-	var description = $("#RouteDes").empty();
-	var SelectedRoute;
-	//window.alert($("#SelectRoute option:selected").attr('label'));
-	if($.browser.mozilla)
-		SelectedRoute = $("#SelectRoute option:selected").attr('label');
-	else
-		SelectedRoute = $("#SelectRoute option:selected").text();
+function SetSelectedRoute() {
+    var description = $("#RouteDes").empty();
+    var SelectedRoute;
+    //window.alert($("#SelectRoute option:selected").attr('label'));
+    if (L.Browser.webkit || L.Browser.ie)
+        SelectedRoute = $("#SelectRoute option:selected").text();
+    else
+        SelectedRoute = $("#SelectRoute option:selected").attr('label');
 
-	currentSelectedRoute = $("#SelectRoute option:selected").attr('value');
+    currentSelectedRoute = $("#SelectRoute option:selected").attr('value');
 
-	if(SelectedRoute !== undefined && description !== undefined){
-		description.text(SelectedRoute);
-		//window.alert(SelectedRouteID);
-		SetSelectDirection();
-	}
+    if (SelectedRoute !== undefined && description !== undefined) {
+        description.text(SelectedRoute);
+        //window.alert(SelectedRouteID);
+        SetSelectDirection();
+    }
 }
 
-function SetSelectDirection(){
-	var dir = $('input[name="dirctions"]:checked').val();
+function SetSelectDirection() {
+    var dir = $('input[name="dirctions"]:checked').val();
 
-	if(dir == "forward")
-		DownloadRouteMaster(currentSelectedRoute , true);
-	else
-		DownloadRouteMaster(currentSelectedRoute , false);
+    if (dir == "forward")
+        RouteDownloadManager.DownloadRouteMaster(currentSelectedRoute, true);
+    else
+        RouteDownloadManager.DownloadRouteMaster(currentSelectedRoute, false);
 }

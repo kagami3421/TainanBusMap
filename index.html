@@ -9,7 +9,7 @@
 
     <!-- Bootstrap -->
     <link href="TBus.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- <link href="css/bootstrap-theme.min.css" rel="stylesheet"> -->
     <link href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" rel="stylesheet" />
@@ -61,16 +61,20 @@
                 </li>
                 <li>
                     <p>路線起終點:
-                        <h4><span class="label label-primary" id="RouteDes"></span></h4>
+                        <h4>
+                            <span class="label label-primary" id="RouteDes"></span>
+                        </h4>
                     </p>
                 </li>
                 <li>
                     <div class="btn-group" data-toggle="buttons">
                         <label class="btn btn-primary active">
-                            <input type="radio" name="dirctions" value="forward" checked><p>往程</p>
+                            <input type="radio" name="dirctions" value="forward" checked>
+                            <p>往程</p>
                         </label>
                         <label class="btn btn-primary">
-                            <input type="radio" name="dirctions" value="backward"><p>返程</p>
+                            <input type="radio" name="dirctions" value="backward">
+                            <p>返程</p>
                         </label>
                     </div>
                 </li>
@@ -185,11 +189,13 @@
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="js/jquery.browser.min.js"></script>
+    <!-- <script src="js/jquery.browser.min.js"></script> -->
+    <script src="js/jquery.blockUI.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
 
-    <script src="js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>
+    <script src="js/bootbox.min.js"></script>
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
     <script src="js/leaflet.markercluster.js"></script>
     <script src="TainanBus.js"></script>
