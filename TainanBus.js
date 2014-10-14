@@ -90,10 +90,10 @@ function SetRoutesList(id) {
 
     $.getJSON(routeJsonUrl + id + routeJsonExtension, function(data) {
         $.each(data, function(i, item) {
-		if($.browser.mozilla)
-			routeList.append($('<option></option>').text(item.RouteName).attr('value', item.RouteOSMRelation).attr('label', item.RouteFromTo));
-		else
-			routeList.append($('<option></option>').text(item.RouteFromTo).attr('value', item.RouteOSMRelation).attr('label', item.RouteName));
+			if($.browser.mozilla)
+				routeList.append($('<option></option>').text(item.RouteName).attr('value', item.RouteOSMRelation).attr('label', item.RouteFromTo));
+			else
+				routeList.append($('<option></option>').text(item.RouteFromTo).attr('value', item.RouteOSMRelation).attr('label', item.RouteName));
         });
 
         $('#SelectRoute').selectpicker('refresh');
