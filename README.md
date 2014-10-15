@@ -29,4 +29,5 @@ http://kagami3421.github.io/TainanBusMap
 * [Tainan Bus Dynamic System](http://2384.tainan.gov.tw/TNWeb/Index.jsp?locale=zh_TW&agis=Yes)
 * Shing-nan Bus Corporation
 * Xin-yin Bus Corporation
+* Fu-cheng Bus Corporation
 
