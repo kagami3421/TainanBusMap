@@ -4,7 +4,7 @@ TainanBusMap
 View Bus Routes of Tainan City
 
 ## Direct Link: 
-(http://kagami3421.github.io/TainanBusMap)
+http://kagami3421.github.io/TainanBusMap
 
 ## Instruction:
 
@@ -23,7 +23,7 @@ View Bus Routes of Tainan City
 * [Bootstrap-Select](http://silviomoreto.github.io/bootstrap-select/)
 * [jQuery-BlockUI](http://malsup.com/jquery/block/)
 
-## Refrence:
+## Data Refrence:
 
 * OpenStreetMap
 * [Tainan Bus Dynamic System](http://2384.tainan.gov.tw/TNWeb/Index.jsp?locale=zh_TW&agis=Yes)
