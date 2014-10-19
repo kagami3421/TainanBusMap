@@ -1,22 +1,22 @@
+
 //Resource Paths
-var categoryJsonUrl = "LocalData/MainCategory";
 var routeJsonUrl = "LocalData/BusRoute";
-var routeJsonExtension = ".json";
 
-var map = L.map('map').setView([23.1852, 120.4287], 11);
-
-var currentRouteRelation; // Current Selected Route Array
 var currentSelectedRoute; // Current Selected Route Number
+var currentColorScheme;
+var ColorSchemeCollect = [];
 
 var RouteDownloadManager;
 
 $(document).ready(function() {
 
+    map = L.map('map').setView([23.1852, 120.4287], 11);
+
     $('select').selectpicker();
 
     //Render Map
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        attribution: MapAttribution
     }).addTo(map);
 
     //ShowOptions
@@ -54,7 +54,7 @@ function InitCategories() {
             categoryList.append($('<option></option>').text(item.categoryName).attr('value', item.categoryIndex));
 
             //window.alert(RouteColorSettings["LineColor"]);
-            RouteDownloadManager.InitAllIconsOption(item.categoryIndex);
+            RouteDownloadManager.InitStopIconOption(item.categoryIndex);
             //Save Color Setting
             var ColorScheme = {
                 MainLineColor: item.categoryLineColor,
@@ -86,7 +86,7 @@ function SetRoutesList(id) {
     //console.log(currentLineColor);
 
     //Change Color
-    RouteDownloadManager.InitLeafletOptions(id);
+    RouteDownloadManager.InitLeafletOption(id , currentColorScheme);
 
     $.getJSON(routeJsonUrl + id + routeJsonExtension, function(data) {
         $.each(data, function(i, item) {

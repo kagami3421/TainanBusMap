@@ -6,9 +6,6 @@ var FullQuery = "/full";
 var BusIcon = "Icons/busIcon";
 var BusIcon_Ext = ".png";
 
-var currentColorScheme;
-var ColorSchemeCollect = [];
-
 L.TainanBus.IconTemplate = L.Icon.extend({
     options: {
         iconSize: [20, 20],
@@ -27,7 +24,7 @@ L.TainanBus.RenderManager = L.Class.extend({
         this._currentBusMarker = null;
     },
 
-    InitAllIconsOption: function(value) {
+    InitStopIconOption: function(value) {
         var tmpIcon = new L.TainanBus.IconTemplate({
             iconUrl: BusIcon + value + BusIcon_Ext
         });
@@ -35,18 +32,18 @@ L.TainanBus.RenderManager = L.Class.extend({
         this._BusIconOptions.push(tmpIcon);
     },
 
-    InitLeafletOptions: function(id) {
+    InitLeafletOption: function(id , scheme) {
 
         this._currentBusMarker = this._BusIconOptions[id - 1];
 
         this._BusMainRouteLineOptions = {
-            color: currentColorScheme.MainLineColor,
+            color: scheme.MainLineColor,
             opacity: 1,
             clickable: false
         };
 
         this._BusExtendRouteLineOptions = {
-            color: currentColorScheme.ExtendLineColor,
+            color: scheme.ExtendLineColor,
             opacity: 1,
             clickable: false
         }
@@ -63,56 +60,52 @@ L.TainanBus.RenderManager = L.Class.extend({
 
         var _thisClass = this;
 
-        //Open Loading Mask
-        $.blockUI({
-            message: '<h1>載入中...</h1>',
-            css: {
-                border: 'none',
-                padding: '15px',
-                backgroundColor: '#000',
-                '-webkit-border-radius': '10px',
-                '-moz-border-radius': '10px',
-                'border-radius': '10px',
-                opacity: .5,
-                color: '#fff'
-            }
-        });
-
         $.ajax({
             url: OSMAPIUrl + id,
             dataType: "xml",
             success: function(xml) {
-                currentRouteRelation = new L.TainanBus.getRoutesInMaster(xml);
+                var currentRouteRelation = new L.TainanBus.getRoutesInMaster(xml);
 
                 var loop = 0; //Check Dir is null or not
 
+                _thisClass.BlockingMask(true,null);
+
                 for (var i = 0; i < currentRouteRelation.length; i++) {
                     if (currentRouteRelation[i].Direction === dir) {
-                        _thisClass.RenderRoute(currentRouteRelation[i].Ref, currentRouteRelation[i].Extend);
+                        _thisClass.RenderRoute(currentRouteRelation[i].Ref, currentRouteRelation[i].Extend , function(layer){
+                            _thisClass._RouteLayers.push(layer);
+                        });
+
                         loop++;
                     }
                 };
 
                 if (loop == 0) {
-                    bootbox.alert("此路線為單向行駛!", function() {
-                        //Close Loading Mask
-                        $.unblockUI();
-                    });
-                } 
-                else
-                    $.unblockUI();
 
+                    if(bootbox === undefined)
+                        window.alert("此路線為單向行駛!");
+                    else
+                        bootbox.alert("此路線為單向行駛!");
+                }
+
+                window.setTimeout(function(){
+                    _thisClass.BlockingMask(false,null);
+                },2000);
             },
             error: function() {
-                bootbox.alert("資料載入失敗!", function() {
-                    //Close Loading Mask
-                    $.unblockUI();
-                });
+                if(bootbox === undefined)
+                    window.alert("資料載入失敗!");
+                else
+                    bootbox.alert("資料載入失敗!");
+
+                window.setTimeout(function(){
+                    _thisClass.BlockingMask(false,null);
+                },2000);
             }
         });
     },
 
-    RenderRoute: function(id, isExtend) {
+    RenderRoute: function(id, isExtend , callFunction) {
 
         var _thisClass = this;
 
@@ -120,21 +113,64 @@ L.TainanBus.RenderManager = L.Class.extend({
             url: OSMAPIUrl + id + FullQuery,
             dataType: "xml",
             success: function(xml) {
+                layer = new L.TainanBus.DataLayer(xml, isExtend, _thisClass).addTo(map);
 
-                //window.alert(map);
-                var layer = new L.TainanBus.DataLayer(xml, isExtend, _thisClass).addTo(map);
-                //map.fitBounds(layer.getBounds());
+                if(isExtend === false)
+                    map.fitBounds(layer.getBounds());
 
-                //console.log(isExtend);
-
-                _thisClass._RouteLayers.push(layer);
-
-                //window.alert(RouteLayers.length);
+                if(callFunction !== null)
+                    callFunction(layer);
             },
             error: function() {
-                bootbox.alert("資料載入失敗!");
+                if(bootbox === undefined)
+                    window.alert("資料載入失敗!");
+                else
+                    bootbox.alert("資料載入失敗!");
             }
         });
+
+        
+    },
+
+    BlockingMask: function(enable, div) {
+        if (enable === true) {
+            if (div == undefined || div == null) {
+                $.blockUI({
+                    message: '<h1>載入中...</h1>',
+                    css: {
+                        border: 'none',
+                        padding: '15px',
+                        backgroundColor: '#000',
+                        '-webkit-border-radius': '10px',
+                        '-moz-border-radius': '10px',
+                        'border-radius': '10px',
+                        opacity: .5,
+                        color: '#fff'
+                    }
+                });
+            }
+            else{
+                $(div).block({
+                    message: '<h1>載入中...</h1>',
+                    css: {
+                        border: 'none',
+                        padding: '15px',
+                        backgroundColor: '#000',
+                        '-webkit-border-radius': '10px',
+                        '-moz-border-radius': '10px',
+                        'border-radius': '10px',
+                        opacity: .5,
+                        color: '#fff'
+                    }
+                });
+            }
+        } 
+        else {
+            if(div == null || div == undefined)
+                $.unblockUI();
+            else
+                $(div).unblock(); 
+        }
     }
 });
 
@@ -252,8 +288,9 @@ L.TainanBus.DataLayer = L.FeatureGroup.extend({
 
         var checked = false;
         var checkedElement = $("#ShowBusStop:checked");
+        var Element = $("#ShowBusStop");
 
-        if (checkedElement.length > 0)
+        if (checkedElement.length > 0 ||　Element.length == 0)
             checked = true;
 
         return checked;
