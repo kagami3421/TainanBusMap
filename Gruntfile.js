@@ -16,7 +16,18 @@ module.exports = function(grunt) {
                 }
             }
         },
-        processhtml: {
+        cssmin: {
+            options: {
+                banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+            },
+            add_banner: {
+                files: {
+                    'build/Tbus.min.css': ['src/TBus.css'],
+                    'build/TDivbus.min.css': ['src/TDivBus.css']
+                }
+            }
+        },
+        /*processhtml: {
             options: {
                 process: true
             },
@@ -26,13 +37,15 @@ module.exports = function(grunt) {
                     'DivTest.html': ['src/DivTest_src.html']
                 }
             }
-        }
+        }*/
     });
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-processhtml');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
 
-    grunt.registerTask('default', ['uglify']);
+    //grunt.loadNpmTasks('grunt-processhtml');
 
-    grunt.registerTask('build_html', ['processhtml']);
+    grunt.registerTask('default', ['uglify','cssmin']);
+
+    //grunt.registerTask('build_html', ['processhtml']);
 };
