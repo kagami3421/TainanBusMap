@@ -49,7 +49,7 @@ L.TainanBus.RenderManager = L.Class.extend({
         }
     },
 
-    DownloadRouteMaster: function(id, dir) {
+    DownloadRouteMaster: function(id, dir , targetDiv) {
 
         //Remove all lines and markers
         if (this._RouteLayers.length > 0) {
@@ -68,7 +68,7 @@ L.TainanBus.RenderManager = L.Class.extend({
 
                 var loop = 0; //Check Dir is null or not
 
-                _thisClass.BlockingMask(true,null);
+                _thisClass.BlockingMask(true,targetDiv);
 
                 for (var i = 0; i < currentRouteRelation.length; i++) {
                     if (currentRouteRelation[i].Direction === dir) {
@@ -89,7 +89,7 @@ L.TainanBus.RenderManager = L.Class.extend({
                 }
 
                 window.setTimeout(function(){
-                    _thisClass.BlockingMask(false,null);
+                    _thisClass.BlockingMask(false,targetDiv);
                 },2000);
             },
             error: function() {
@@ -99,7 +99,7 @@ L.TainanBus.RenderManager = L.Class.extend({
                     bootbox.alert("資料載入失敗!");
 
                 window.setTimeout(function(){
-                    _thisClass.BlockingMask(false,null);
+                    _thisClass.BlockingMask(false,targetDiv);
                 },2000);
             }
         });
@@ -290,7 +290,7 @@ L.TainanBus.DataLayer = L.FeatureGroup.extend({
         var checkedElement = $("#ShowBusStop:checked");
         var Element = $("#ShowBusStop");
 
-        if (checkedElement.length > 0 ||　Element.length == 0)
+        if (checkedElement.length > 0 || Element.length == 0)
             checked = true;
 
         return checked;

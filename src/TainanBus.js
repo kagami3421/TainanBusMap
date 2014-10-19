@@ -118,7 +118,7 @@ function SetSelectDirection() {
     var dir = $('input[name="dirctions"]:checked').val();
 
     if (dir == "forward")
-        RouteDownloadManager.DownloadRouteMaster(currentSelectedRoute, true);
+        RouteDownloadManager.DownloadRouteMaster(currentSelectedRoute, true , null);
     else
-        RouteDownloadManager.DownloadRouteMaster(currentSelectedRoute, false);
+        RouteDownloadManager.DownloadRouteMaster(currentSelectedRoute, false , null);
 }

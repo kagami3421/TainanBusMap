@@ -2,8 +2,10 @@ var AllRoutesJsonUrl = "LocalData/AllBusRoutes";
 
 var RouteDownloadManager;
 
+var DivString = '#map';
+
 $(document).ready(function() {
-    var DivElement = $('#map');
+    var DivElement = $(DivString);
 
     if (DivElement === undefined || DivElement.attr('bus-ref') === undefined) {
         window.alert("找不到地圖Div或編號不存在!");
@@ -101,7 +103,7 @@ function SetSelectDirection2(id) {
     //console.log('Test');
 
     if (dir == "forward")
-        RouteDownloadManager.DownloadRouteMaster(id, true);
+        RouteDownloadManager.DownloadRouteMaster(id, true , DivString);
     else
-        RouteDownloadManager.DownloadRouteMaster(id, false);
+        RouteDownloadManager.DownloadRouteMaster(id, false , DivString);
 }
