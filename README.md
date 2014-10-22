@@ -43,7 +43,7 @@ http://kagami3421.github.io/TainanBusMap
 * 複製js資料夾到你的專案中 (刪除 bootbox.min.js , 因為沒有用到)
 * 複製css資料夾到你的專案中
 
-* 新增以下HTML片段到 <header> 內：
+* 新增以下HTML片段到<header>內：
 
 ```html
 <link rel="stylesheet" href="build/TDivBus.min.css">
@@ -52,7 +52,7 @@ http://kagami3421.github.io/TainanBusMap
 <link href="css/MarkerCluster.Default.css" rel="stylesheet" />
 ```
 
-* 新增以下HTML片段到 </body> 前方：
+* 新增以下HTML片段到</body>前方：
 
 ```html
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
