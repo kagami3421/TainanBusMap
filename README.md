@@ -35,14 +35,15 @@ http://kagami3421.github.io/TainanBusMap
 
 # Inner HTML Map (內嵌式地圖)
 
-## Dependencies:
+## 前置作業:
 
-* Download project zip file (下載專案檔)
-* Copy build folder in your web project (Remove TainanBus.min.js , because it isn't necessary)
+* 下載專案檔
 * 複製build資料夾到你的專案中 (刪除 TainanBus.min.js , 因為沒有用到)
+* 複製LocalData資料夾到你的專案中 (除了 AllBusRoutes.json 以外 , 其他刪除)
+* 複製js資料夾到你的專案中 (刪除 bootbox.min.js , 因為沒有用到)
+* 複製css資料夾到你的專案中
 
-* Add these css dependcies in your HTML <header> section
-(You should change the href= path where puts your MarkerCluster css files)
+* 新增以下HTML片段到 <header> 內：
 
 ```html
 <link rel="stylesheet" href="build/TDivBus.min.css">
@@ -51,8 +52,7 @@ http://kagami3421.github.io/TainanBusMap
 <link href="css/MarkerCluster.Default.css" rel="stylesheet" />
 ```
 
-* Add these javascript dependcies in your HTML <body> section 
-(You should change the src= path where puts your MarkerCluster js files)
+* 新增以下HTML片段到 </body> 前方：
 
 ```html
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -64,15 +64,15 @@ http://kagami3421.github.io/TainanBusMap
 <script src="build/TainanBusDiv.min.js"></script>
 ```
 
-## Using Instruction: 
+## 使用方法: 
 
-*Add the HTML section you want to display the map in your page
+* 新增此Div元素到你想要顯示地圖的HTML片段之間：
 
 ```html
 <div id="map" bus-ref="6"></div>
 ```
 
-* Div Element id *MUST* is map
-* The map display route by changing value of *bus-ref* attribute
-* (EX. fill Red in bus-ref *bus-ref="Red"* , it will display Red Line Route on the map)
-* You can change map size by modifying *map* tag in your css file
+* Div 元素名稱 **必須是map**
+* 會根據你在bus-ref填入的值來顯示相對應的路線
+* (EX. 填入 **bus-ref="Red"** , 就會顯示紅幹線在地圖上)
+* 你可以藉由CSS標籤去控制map元素的大小(Ex. #map)

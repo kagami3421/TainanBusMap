@@ -44,27 +44,33 @@ function GetRouteByCode(code) {
         });
 
         var currentCategory;
-    	var currentRelationID;
-    	var currentColorScheme = {};
+        var currentRelationID;
+        var currentColorScheme = {};
 
         $.getJSON(AllRoutesJsonUrl + routeJsonExtension, function(data) {
             $.each(data, function(i, item) {
                 if (code == item.RouteCodeName) {
                     currentCategory = item.RouteCategory;
                     currentRelationID = item.RouteOSMRelation;
+                    return false;
                 }
             });
 
-            currentColorScheme = ColorSchemeCollect[currentCategory - 1];
+            if (currentCategory === undefined && currentRelationID === undefined) {
+                window.alert("編號不存在!");
+            }
+            else {
+                currentColorScheme = ColorSchemeCollect[currentCategory - 1];
 
-    		RouteDownloadManager.InitLeafletOption(currentCategory, currentColorScheme);
+                RouteDownloadManager.InitLeafletOption(currentCategory, currentColorScheme);
 
-    		map.addControl(new L.BusDirControl(currentRelationID));
+                map.addControl(new L.BusDirControl(currentRelationID));
 
-    		//Event Binding
-    		$('input[name="direction"]:radio').change(function() {
-            	SetSelectDirection2(currentRelationID);
-        	});
+                //Event Binding
+                $('input[name="direction"]:radio').change(function() {
+                    SetSelectDirection2(currentRelationID);
+                });
+            }
         });
     });
 }
@@ -84,7 +90,7 @@ L.BusDirControl = L.Control.extend({
         var ForwardOption = '<input type="radio" name="direction" value="forward" checked>往程<br/>';
         var BackwardOption = '<input type="radio" name="direction" value="backward">返程';
 
-        var OptionContainer = L.DomUtil.create('div','dir');
+        var OptionContainer = L.DomUtil.create('div', 'dir');
         $(OptionContainer).append(ForwardOption, BackwardOption);
 
         SetSelectDirection2(this._busRelationID);
@@ -103,7 +109,7 @@ function SetSelectDirection2(id) {
     //console.log('Test');
 
     if (dir == "forward")
-        RouteDownloadManager.DownloadRouteMaster(id, true , DivString);
+        RouteDownloadManager.DownloadRouteMaster(id, true, DivString);
     else
-        RouteDownloadManager.DownloadRouteMaster(id, false , DivString);
+        RouteDownloadManager.DownloadRouteMaster(id, false, DivString);
 }
