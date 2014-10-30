@@ -39,7 +39,7 @@ http://kagami3421.github.io/TainanBusMap
 
 * 下載專案檔
 * 複製build資料夾到你的專案中 (刪除 TainanBus.min.js , 因為沒有用到)
-* 複製LocalData資料夾到你的專案中 (除了 AllBusRoutes.json 以外 , 其他刪除)
+* 複製LocalData資料夾到你的專案中 (除了 AllBusRoutes.json 、 MainCategory.json 以外 , 其他刪除)
 * 複製js資料夾到你的專案中 (刪除 bootbox.min.js , 因為沒有用到)
 * 複製css資料夾到你的專案中
 
@@ -73,6 +73,6 @@ http://kagami3421.github.io/TainanBusMap
 ```
 
 * Div 元素名稱 **必須是map**
-* 會根據你在bus-ref填入的值來顯示相對應的路線
-* (EX. 填入 **bus-ref="Red"** , 就會顯示紅幹線在地圖上)
+* 會根據你在bus-ref填入的值來顯示相對應的路線，多路線請中間間隔逗號
+* (EX. 填入 **bus-ref="Red"** , 就會顯示紅幹線在地圖上;填入 **bus-ref="Blue,5"** , 就會顯示選單讓使用者選擇顯示藍幹線或市區5路)
 * 你可以藉由CSS標籤去控制map元素的大小(Ex. #map)
