@@ -1,700 +1,700 @@
 [
 	{
 		"RouteCodeName":"0L",
-		"RouteFromTo":"火車站(北)─火車站(北)",
+		"RouteName":"0左",
 		"RouteOSMRelation":4016613,
 		"RouteCode":10450,
 		"RouteCategory":1
 	},
 	{
 		"RouteCodeName":"0R",
-		"RouteFromTo":"火車站(南)─火車站(南)",
+		"RouteName":"0右",
 		"RouteOSMRelation":4019261,
 		"RouteCode":10451,
 		"RouteCategory":1
 	},
 	{
 		"RouteCodeName":"1",
-		"RouteFromTo":"火車站─茄萣",
+		"RouteName":"1路",
 		"RouteOSMRelation":3950907,
 		"RouteCode":10160,
 		"RouteCategory":1
 	},
 	{
 		"RouteCodeName":"2",
-		"RouteFromTo":"崑山科大─安平",
+		"RouteName":"2路",
 		"RouteOSMRelation":3925023,
 		"RouteCode":10162,
 		"RouteCategory":1
 	},
 	{
 		"RouteCodeName":"3",
-		"RouteFromTo":"海東國小─竹蒿厝",
+		"RouteName":"3路",
 		"RouteOSMRelation":3958662,
 		"RouteCode":10163,
 		"RouteCategory":1
 	},
 	{
 		"RouteCodeName":"5",
-		"RouteFromTo":"鹽行─市立醫院",
+		"RouteName":"5路",
 		"RouteOSMRelation":3962262,
 		"RouteCode":10164,
 		"RouteCategory":1
 	},
 	{
 		"RouteCodeName":"6",
-		"RouteFromTo":"新興國宅─裕聖里",
+		"RouteName":"6路",
 		"RouteOSMRelation":3969615,
 		"RouteCode":10165,
 		"RouteCategory":1
 	},
 	{
 		"RouteCodeName":"7",
-		"RouteFromTo":"火車站─安南學苑",
+		"RouteName":"7路",
 		"RouteOSMRelation":4010987,
 		"RouteCode":10166,
 		"RouteCategory":1
 	},
 	{
 		"RouteCodeName":"9",
-		"RouteFromTo":"火車站─公親寮",
+		"RouteName":"9路",
 		"RouteOSMRelation":4016580,
 		"RouteCode":10167,
 		"RouteCategory":1
 	},
 	{
 		"RouteCodeName":"10",
-		"RouteFromTo":"火車站─鹿耳門天后宮",
+		"RouteName":"10路",
 		"RouteOSMRelation":4016597,
 		"RouteCode":10168,
 		"RouteCategory":1
 	},
 	{
 		"RouteCodeName":"11",
-		"RouteFromTo":"大成口─城西里",
+		"RouteName":"11路",
 		"RouteOSMRelation":3975089,
 		"RouteCode":10169,
 		"RouteCategory":1
 	},
 	{
 		"RouteCodeName":"14",
-		"RouteFromTo":"火車站─億載金城",
+		"RouteName":"14路",
 		"RouteOSMRelation":4019260,
 		"RouteCode":10170,
 		"RouteCategory":1
 	},
 	{
 		"RouteCodeName":"15",
-		"RouteFromTo":"奇美醫院─大成國中",
+		"RouteName":"15路",
 		"RouteOSMRelation":4016606,
 		"RouteCode":10452,
 		"RouteCategory":1
 	},
 	{
 		"RouteCodeName":"18",
-		"RouteFromTo":"台南站─塭南里",
+		"RouteName":"18路",
 		"RouteOSMRelation":3966183,
 		"RouteCode":10161,
 		"RouteCategory":1
 	},
 	{
 		"RouteCodeName":"20",
-		"RouteFromTo":"崑山科大─安南醫院",
+		"RouteName":"20路",
 		"RouteOSMRelation":4020969,
 		"RouteCode":10020,
 		"RouteCategory":1
 	},
 	{
 		"RouteCodeName":"21",
-		"RouteFromTo":"火車站─永康工業區",
+		"RouteName":"21路",
 		"RouteOSMRelation":4019361,
 		"RouteCode":10021,
 		"RouteCategory":1
 	},
 	{
 		"RouteCodeName":"Red",
-		"RouteFromTo":"安工區─關廟─龍崎",
+		"RouteName":"紅幹線",
 		"RouteOSMRelation":3905767,
 		"RouteCode":1600,
 		"RouteCategory":2
 	},
 	{
 		"RouteCodeName":"R1",
-		"RouteFromTo":"火車站─太子廟─關廟",
+		"RouteName":"紅1",
 		"RouteOSMRelation":4051878,
 		"RouteCode":1601,
 		"RouteCategory":2
 	},
 	{
 		"RouteCodeName":"R2",
-		"RouteFromTo":"火車站─仁德─上崙子─關廟",
+		"RouteName":"紅2",
 		"RouteOSMRelation":4053448,
 		"RouteCode":1602,
 		"RouteCategory":2
 	},
 	{
 		"RouteCodeName":"R3",
-		"RouteFromTo":"火車站─高鐵台南站─關廟",
+		"RouteName":"紅3",
 		"RouteOSMRelation":4058217,
 		"RouteCode":1603,
 		"RouteCategory":2
 	},
 	{
 		"RouteCodeName":"R4",
-		"RouteFromTo":"火車站─臺南都會公園",
+		"RouteName":"紅4",
 		"RouteOSMRelation":4055900,
 		"RouteCode":1604,
 		"RouteCategory":2
 	},
 	{
 		"RouteCodeName":"R10",
-		"RouteFromTo":"關廟─奇美醫院",
+		"RouteName":"紅10",
 		"RouteOSMRelation":4056199,
 		"RouteCode":1610,
 		"RouteCategory":2
 	},
 	{
 		"RouteCodeName":"R11",
-		"RouteFromTo":"關廟─龍崎─牛埔農塘",
+		"RouteName":"紅11",
 		"RouteOSMRelation":4055682,
 		"RouteCode":1611,
 		"RouteCategory":2
 	},
 	{
 		"RouteCodeName":"R12",
-		"RouteFromTo":"關廟─龍崎─烏山頭",
+		"RouteName":"紅12",
 		"RouteOSMRelation":4055683,
 		"RouteCode":1612,
 		"RouteCategory":2
 	},
 	{
 		"RouteCodeName":"R13",
-		"RouteFromTo":"關廟─阿蓮",
+		"RouteName":"紅13",
 		"RouteOSMRelation":4053990,
 		"RouteCode":1613,
 		"RouteCategory":2
 	},
 	{
 		"RouteCodeName":"R14",
-		"RouteFromTo":"關廟─歸仁─高鐵台南站",
+		"RouteName":"紅14",
 		"RouteOSMRelation":4055796,
 		"RouteCode":1614,
 		"RouteCategory":2
 	},
 	{
 		"RouteCodeName":"Blue",
-		"RouteFromTo":"安工區─西港─佳里",
+		"RouteName":"藍幹線",
 		"RouteOSMRelation":3905750,
 		"RouteCode":1200,
 		"RouteCategory":3
 	},
 	{
 		"RouteCodeName":"B1",
-		"RouteFromTo":"佳里─苓子寮─西埔內─南鯤鯓",
+		"RouteName":"藍1",
 		"RouteOSMRelation":4090981,
 		"RouteCode":1201,
 		"RouteCategory":3
 	},
 	{
 		"RouteCodeName":"B2",
-		"RouteFromTo":"佳里─溪底寮─南鯤鯓",
+		"RouteName":"藍2",
 		"RouteOSMRelation":4090646,
 		"RouteCode":1202,
 		"RouteCategory":3
 	},
 	{
 		"RouteCodeName":"B3",
-		"RouteFromTo":"佳里─蘆竹溝",
+		"RouteName":"藍3",
 		"RouteOSMRelation":4090645,
 		"RouteCode":1203,
 		"RouteCategory":3
 	},
 	{
 		"RouteCodeName":"B10",
-		"RouteFromTo":"佳里─馬沙溝─將軍漁港",
+		"RouteName":"藍10",
 		"RouteOSMRelation":4090982,
 		"RouteCode":1210,
 		"RouteCategory":3
 	},
 	{
 		"RouteCodeName":"B11",
-		"RouteFromTo":"佳里─城子內─青鯤鯓",
+		"RouteName":"藍11",
 		"RouteOSMRelation":4077059,
 		"RouteCode":1211,
 		"RouteCategory":3
 	},
 	{
 		"RouteCodeName":"B12",
-		"RouteFromTo":"佳里─後港─青鯤鯓",
+		"RouteName":"藍12",
 		"RouteOSMRelation":4077060,
 		"RouteCode":1212,
 		"RouteCategory":3
 	},
 	{
 		"RouteCodeName":"B13",
-		"RouteFromTo":"佳里─西寮",
+		"RouteName":"藍13",
 		"RouteOSMRelation":4077061,
 		"RouteCode":1213,
 		"RouteCategory":3
 	},
 	{
 		"RouteCodeName":"B20",
-		"RouteFromTo":"佳里─台區─青鯤鯓─將軍漁港",
+		"RouteName":"藍20",
 		"RouteOSMRelation":4081185,
 		"RouteCode":1220,
 		"RouteCategory":3
 	},
 	{
 		"RouteCodeName":"B21",
-		"RouteFromTo":"佳里─義合─九塊厝",
+		"RouteName":"藍21",
 		"RouteOSMRelation":4079190,
 		"RouteCode":1221,
 		"RouteCategory":3
 	},
 	{
 		"RouteCodeName":"B22",
-		"RouteFromTo":"佳里─七十二份─九塊厝",
+		"RouteName":"藍22",
 		"RouteOSMRelation":4079191,
 		"RouteCode":1222,
 		"RouteCategory":3
 	},
 	{
 		"RouteCodeName":"B23",
-		"RouteFromTo":"安工區─九塊厝",
+		"RouteName":"藍23",
 		"RouteOSMRelation":4074266,
 		"RouteCode":1223,
 		"RouteCategory":3
 	},
 	{
 		"RouteCodeName":"B24",
-		"RouteFromTo":"安工區─土城子─青草里",
+		"RouteName":"藍24",
 		"RouteOSMRelation":4074007,
 		"RouteCode":1224,
 		"RouteCategory":3
 	},
 	{
 		"RouteCodeName":"B25",
-		"RouteFromTo":"佳里─七股─土城子─科工區",
+		"RouteName":"藍25",
 		"RouteOSMRelation":4074635,
 		"RouteCode":1225,
 		"RouteCategory":3
 	},
 	{
 		"RouteCodeName":"Green",
-		"RouteFromTo":"台南─新化─玉井",
+		"RouteName":"綠幹線",
 		"RouteOSMRelation":3905751,
 		"RouteCode":1100,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G1",
-		"RouteFromTo":"新化─新市─南科─善化",
+		"RouteName":"綠1",
 		"RouteOSMRelation":4103106,
 		"RouteCode":1101,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G2",
-		"RouteFromTo":"新化─新市─南科─善化─山上",
+		"RouteName":"綠2",
 		"RouteOSMRelation":4103107,
 		"RouteCode":1102,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G3",
-		"RouteFromTo":"新化─新市─看西─南科─善化",
+		"RouteName":"綠3",
 		"RouteOSMRelation":4103108,
 		"RouteCode":1103,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G4",
-		"RouteFromTo":"新化─新市─陽光電城─善化",
+		"RouteName":"綠4",
 		"RouteOSMRelation":4102918,
 		"RouteCode":1104,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G5",
-		"RouteFromTo":"臺鐵永康站─潭頂─大社",
+		"RouteName":"綠5",
 		"RouteOSMRelation":4105052,
 		"RouteCode":1105,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G6",
-		"RouteFromTo":"新化─潭頂─大社",
+		"RouteName":"綠6",
 		"RouteOSMRelation":4105433,
 		"RouteCode":1106,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G7",
-		"RouteFromTo":"新化─大營─大社",
+		"RouteName":"綠7",
 		"RouteOSMRelation":4105434,
 		"RouteCode":1107,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G10",
-		"RouteFromTo":"新化─山上",
+		"RouteName":"綠10",
 		"RouteOSMRelation":4105555,
 		"RouteCode":1110,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G11",
-		"RouteFromTo":"新化─山上─善化",
+		"RouteName":"綠11",
 		"RouteOSMRelation":4105727,
 		"RouteCode":1111,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G12",
-		"RouteFromTo":"新化─南化─玉山",
+		"RouteName":"綠12",
 		"RouteOSMRelation":4107380,
 		"RouteCode":1112,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G13",
-		"RouteFromTo":"新化─岡林─左鎮",
+		"RouteName":"綠13",
 		"RouteOSMRelation":4107405,
 		"RouteCode":1113,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G14",
-		"RouteFromTo":"新化─九層嶺",
+		"RouteName":"綠14",
 		"RouteOSMRelation":4103000,
 		"RouteCode":1114,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G15",
-		"RouteFromTo":"新化─五甲勢",
+		"RouteName":"綠15",
 		"RouteOSMRelation":4103053,
 		"RouteCode":1115,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G16",
-		"RouteFromTo":"新化 ─ 關廟",
+		"RouteName":"綠16",
 		"RouteOSMRelation":4060903,
 		"RouteCode":1116,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G17",
-		"RouteFromTo":"安工區─大灣─新化",
+		"RouteName":"綠17",
 		"RouteOSMRelation":4051250,
 		"RouteCode":1117,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G20",
-		"RouteFromTo":"玉井─楠西─永興吊橋",
+		"RouteName":"綠20",
 		"RouteOSMRelation":4109138,
 		"RouteCode":1120,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G21",
-		"RouteFromTo":"玉井─龜丹油礦",
+		"RouteName":"綠21",
 		"RouteOSMRelation":4109182,
 		"RouteCode":1121,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G22",
-		"RouteFromTo":"玉井─梅嶺",
+		"RouteName":"綠22",
 		"RouteOSMRelation":4109139,
 		"RouteCode":1122,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G23",
-		"RouteFromTo":"玉井─雙溪新社區",
+		"RouteName":"綠23",
 		"RouteOSMRelation":4109194,
 		"RouteCode":1123,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G24",
-		"RouteFromTo":"玉井─曾文水庫管理局",
+		"RouteName":"綠24",
 		"RouteOSMRelation":4109137,
 		"RouteCode":1124,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G25",
-		"RouteFromTo":"玉井─大埔",
+		"RouteName":"綠25",
 		"RouteOSMRelation":4109193,
 		"RouteCode":1125,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G26",
-		"RouteFromTo":"玉井─甲仙",
+		"RouteName":"綠26",
 		"RouteOSMRelation":4107555,
 		"RouteCode":1126,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"G27",
-		"RouteFromTo":"玉井─南化",
+		"RouteName":"綠27",
 		"RouteOSMRelation":4107536,
 		"RouteCode":1127,
 		"RouteCategory":4
 	},
 	{
 		"RouteCodeName":"Brown",
-		"RouteFromTo":"新營─鹽水─學甲─佳里",
+		"RouteName":"棕幹線",
 		"RouteOSMRelation":4032408,
 		"RouteCode":1300,
 		"RouteCategory":5
 	},
 	{
 		"RouteCodeName":"Br1",
-		"RouteFromTo":"新營─鹽水─南鯤鯓─雙春",
+		"RouteName":"棕1",
 		"RouteOSMRelation":4058651,
 		"RouteCode":1301,
 		"RouteCategory":5
 	},
 	{
 		"RouteCodeName":"Br2",
-		"RouteFromTo":"新營─鹽水─下中",
+		"RouteName":"棕2",
 		"RouteOSMRelation":4060430,
 		"RouteCode":1302,
 		"RouteCategory":5
 	},
 	{
 		"RouteCodeName":"Br3",
-		"RouteFromTo":"新營─鹽水─南港里、鐵線里",
+		"RouteName":"棕3",
 		"RouteOSMRelation":4060474,
 		"RouteCode":1303,
 		"RouteCategory":5
 	},
 	{
 		"RouteCodeName":"Br10",
-		"RouteFromTo":"學甲─麻豆",
+		"RouteName":"棕10",
 		"RouteOSMRelation":4053733,
 		"RouteCode":1310,
 		"RouteCategory":5
 	},
 	{
 		"RouteCodeName":"Br11",
-		"RouteFromTo":"學甲─頂洲",
+		"RouteName":"棕11",
 		"RouteOSMRelation":4032928,
 		"RouteCode":1311,
 		"RouteCategory":5
 	},
 	{
 		"RouteCodeName":"Orange",
-		"RouteFromTo":"佳里─麻豆─善化─玉井",
+		"RouteName":"橘幹線",
 		"RouteOSMRelation":3916164,
 		"RouteCode":1400,
 		"RouteCategory":6
 	},
 	{
 		"RouteCodeName":"O1",
-		"RouteFromTo":"善化火車站 ─ 大內 ─ 蒙正",
+		"RouteName":"橘1",
 		"RouteOSMRelation":4067606,
 		"RouteCode":1401,
 		"RouteCategory":6
 	},
 	{
 		"RouteCodeName":"O2",
-		"RouteFromTo":"胡厝寮 ─ 善化 ─ 大內",
+		"RouteName":"橘2",
 		"RouteOSMRelation":4067508,
 		"RouteCode":1402,
 		"RouteCategory":6
 	},
 	{
 		"RouteCodeName":"O3",
-		"RouteFromTo":"善化火車站─安定─和順",
+		"RouteName":"橘3",
 		"RouteOSMRelation":4067742,
 		"RouteCode":1403,
 		"RouteCategory":6
 	},
 	{
 		"RouteCodeName":"O4",
-		"RouteFromTo":"善化火車站─南藝大─烏山頭水庫",
+		"RouteName":"橘4",
 		"RouteOSMRelation":4071513,
 		"RouteCode":1404,
 		"RouteCategory":6
 	},
 	{
 		"RouteCodeName":"O5",
-		"RouteFromTo":"善化火車站─六甲",
+		"RouteName":"橘5",
 		"RouteOSMRelation":4071565,
 		"RouteCode":1405,
 		"RouteCategory":6
 	},
 	{
 		"RouteCodeName":"O10",
-		"RouteFromTo":"大地莊園─麻豆─官田─南藝大",
+		"RouteName":"橘10",
 		"RouteOSMRelation":4072047,
 		"RouteCode":1410,
 		"RouteCategory":6
 	},
 	{
 		"RouteCodeName":"O11",
-		"RouteFromTo":"下營─麻豆─西港─和順",
+		"RouteName":"橘11",
 		"RouteOSMRelation":4069024,
 		"RouteCode":1411,
 		"RouteCategory":6
 	},
 	{
 		"RouteCodeName":"O12",
-		"RouteFromTo":"麻豆─善化─臺南",
+		"RouteName":"橘12",
 		"RouteOSMRelation":4069578,
 		"RouteCode":1412,
 		"RouteCategory":6
 	},
 	{
 		"RouteCodeName":"O20",
-		"RouteFromTo":"大內公所─環湖─玉井",
+		"RouteName":"橘20",
 		"RouteOSMRelation":4061052,
 		"RouteCode":1420,
 		"RouteCategory":6
 	},
 	{
 		"RouteCodeName":"Yellow",
-		"RouteFromTo":"白河─新營─麻豆",
+		"RouteName":"黃幹線",
 		"RouteOSMRelation":4038085,
 		"RouteCode":1500,
 		"RouteCategory":7
 	},
 	{
 		"RouteCodeName":"Y1",
-		"RouteFromTo":"新營─柳營─六甲",
+		"RouteName":"黃1",
 		"RouteOSMRelation":4094407,
 		"RouteCode":1501,
 		"RouteCategory":7
 	},
 	{
 		"RouteCodeName":"Y2",
-		"RouteFromTo":"新營─柳營─六甲─王爺宮",
+		"RouteName":"黃2",
 		"RouteOSMRelation":4094406,
 		"RouteCode":1502,
 		"RouteCategory":7
 	},
 	{
 		"RouteCodeName":"Y3",
-		"RouteFromTo":"新營─柳營─果毅後",
+		"RouteName":"黃3",
 		"RouteOSMRelation":4094977,
 		"RouteCode":1503,
 		"RouteCategory":7
 	},
 	{
 		"RouteCodeName":"Y4",
-		"RouteFromTo":"新營─二重溪─六甲",
+		"RouteName":"黃4",
 		"RouteOSMRelation":4094976,
 		"RouteCode":1504,
 		"RouteCategory":7
 	},
 	{
 		"RouteCodeName":"Y5",
-		"RouteFromTo":"新營─R毛厝─下營",
+		"RouteName":"黃5",
 		"RouteOSMRelation":4096487,
 		"RouteCode":1505,
 		"RouteCategory":7
 	},
 	{
 		"RouteCodeName":"Y6",
-		"RouteFromTo":"新營─白沙屯─後壁火車站",
+		"RouteName":"黃6",
 		"RouteOSMRelation":4096578,
 		"RouteCode":1506,
 		"RouteCategory":7
 	},
 	{
 		"RouteCodeName":"Y7",
-		"RouteFromTo":"新營─東山─青山",
+		"RouteName":"黃7",
 		"RouteOSMRelation":4096828,
 		"RouteCode":1507,
 		"RouteCategory":7
 	},
 	{
 		"RouteCodeName":"Y9",
-		"RouteFromTo":"新營─高鐵嘉義站",
+		"RouteName":"黃9",
 		"RouteOSMRelation":3845767,
 		"RouteCode":1509,
 		"RouteCategory":7
 	},
 	{
 		"RouteCodeName":"Y10",
-		"RouteFromTo":"後壁─白河─六重溪",
+		"RouteName":"黃10",
 		"RouteOSMRelation":4096599,
 		"RouteCode":1510,
 		"RouteCategory":7
 	},
 	{
 		"RouteCodeName":"Y11",
-		"RouteFromTo":"白河─青山",
+		"RouteName":"黃11",
 		"RouteOSMRelation":4096850,
 		"RouteCode":1511,
 		"RouteCategory":7
 	},
 	{
 		"RouteCodeName":"Y12",
-		"RouteFromTo":"白河─關子嶺(含假日公車)",
+		"RouteName":"黃12(含假日公車)",
 		"RouteOSMRelation":4098557,
 		"RouteCode":1512,
 		"RouteCategory":7
 	},
 	{
 		"RouteCodeName":"Y13",
-		"RouteFromTo":"白河─關子嶺─南寮",
+		"RouteName":"黃13",
 		"RouteOSMRelation":4098556,
 		"RouteCode":1513,
 		"RouteCategory":7
 	},
 	{
 		"RouteCodeName":"Y14",
-		"RouteFromTo":"白河─三層崎、內角",
+		"RouteName":"黃14",
 		"RouteOSMRelation":4094254,
 		"RouteCode":1514,
 		"RouteCategory":7
 	},
 	{
 		"RouteCodeName":"Y15",
-		"RouteFromTo":"白河─詔安厝",
+		"RouteName":"黃15",
 		"RouteOSMRelation":4094323,
 		"RouteCode":1515,
 		"RouteCategory":7
 	},
 	{
 		"RouteCodeName":"Y20",
-		"RouteFromTo":"麻豆─下營─R毛厝─臺鐵林鳳營",
+		"RouteName":"黃20",
 		"RouteOSMRelation":4094110,
 		"RouteCode":1520,
 		"RouteCategory":7
 	},
 	{
 		"RouteCodeName":"88",
-		"RouteFromTo":"台南公園─觀夕平台",
+		"RouteName":"88安平線",
 		"RouteOSMRelation":4099165,
 		"RouteCode":10211,
 		"RouteCategory":8
 	},
 	{
 		"RouteCodeName":"99",
-		"RouteFromTo":"台南公園─鹽田生態文化村",
+		"RouteName":"99台江線",
 		"RouteOSMRelation":4100797,
 		"RouteCode":10210,
 		"RouteCategory":8
 	},
 	{
 		"RouteCodeName":"H31",
-		"RouteFromTo":"臺南市政府 ─ 高鐵台南站",
+		"RouteName":"高鐵市府線",
 		"RouteOSMRelation":4101308,
 		"RouteCode":10262,
 		"RouteCategory":9
 	},
 	{
 		"RouteCodeName":"H62",
-		"RouteFromTo":"奇美醫院 ─ 高鐵台南站",
+		"RouteName":"高鐵奇美線",
 		"RouteOSMRelation":4102806,
 		"RouteCode":10265,
 		"RouteCategory":9

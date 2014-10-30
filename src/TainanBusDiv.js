@@ -4,6 +4,12 @@ var RouteDownloadManager;
 
 var DivString = '#map';
 
+var DirControl;
+var ColorSchemeCollect = [];
+var RouteElements = [];
+
+//var currentRelation;
+
 $(document).ready(function() {
     var DivElement = $(DivString);
 
@@ -25,12 +31,13 @@ function CreateBusMap(id) {
         attribution: MapAttribution
     }).addTo(map);
 
-    GetRouteByCode(id);
+    if(id.search(",") === -1)
+        GetRouteByCode(id , false);
+    else
+        GetRouteByCode(id , true);
 }
 
-function GetRouteByCode(code) {
-
-    var ColorSchemeCollect = [];
+function GetRouteByCode(code , isMulti) {
 
     $.getJSON(categoryJsonUrl + routeJsonExtension, function(data) {
         $.each(data, function(i, item) {
@@ -43,36 +50,91 @@ function GetRouteByCode(code) {
             ColorSchemeCollect.push(ColorScheme);
         });
 
-        var currentCategory;
-        var currentRelationID;
-        var currentColorScheme = {};
+        if(isMulti === true)
+            var eachIdCode = code.split(",");
+        else{
+            var eachIdCode = [];
+            eachIdCode.push(code);
+        }
 
         $.getJSON(AllRoutesJsonUrl + routeJsonExtension, function(data) {
-            $.each(data, function(i, item) {
-                if (code == item.RouteCodeName) {
-                    currentCategory = item.RouteCategory;
-                    currentRelationID = item.RouteOSMRelation;
-                    return false;
-                }
-            });
+            //Get Data from assigned codes
+            for(var j = 0 ; j < eachIdCode.length ; ++j){
+                $.each(data, function(i, item) {
+                    if (eachIdCode[j] == item.RouteCodeName) {
 
-            if (currentCategory === undefined && currentRelationID === undefined) {
-                window.alert("編號不存在!");
+                        //console.log(item.RouteOSMRelation);
+                        var Element = {
+                            Category: item.RouteCategory,
+                            RelationID: item.RouteOSMRelation,
+                            Name: item.RouteName
+                        }
+
+                        RouteElements.push(Element);
+                        return false;
+                    }
+                });
+            }
+
+            if (eachIdCode.length !== RouteElements.length) {
+                window.alert("編號有誤!");
             }
             else {
-                currentColorScheme = ColorSchemeCollect[currentCategory - 1];
+                map.addControl(new L.BusSelectRouteControl(RouteElements));
 
-                RouteDownloadManager.InitLeafletOption(currentCategory, currentColorScheme);
+                //console.log(RouteElements);
 
-                map.addControl(new L.BusDirControl(currentRelationID));
+                if(DirControl === undefined){
+                    DirControl = new L.BusDirControl();
+                    map.addControl(DirControl);
+                }
+
+                if(isMulti === false){
+                    $('.selRoute').css('visibility', 'hidden');
+                    $('#selr').css('visibility', 'hidden');
+                }
+
+                SetSelectRoute();
 
                 //Event Binding
+                $('#selr').change(function(){
+                    SetSelectRoute();
+                });
+
                 $('input[name="direction"]:radio').change(function() {
-                    SetSelectDirection2(currentRelationID);
+                    SetSelectDir();
                 });
             }
         });
     });
+}
+
+function SetSelectRoute() {
+    var SelectedElement = $("#selr option:selected").attr('value');
+
+    //console.log(SelectedElement);
+
+    var SelectedElementArray = SelectedElement.split(",");
+
+    currentScheme = ColorSchemeCollect[SelectedElementArray[0] - 1];
+
+    RouteDownloadManager.InitLeafletOption(SelectedElementArray[0], currentScheme);
+
+    if(DirControl !== undefined)
+        DirControl.RefreshRelationID(SelectedElementArray[1]);
+
+    //currentRelation = SelectedElementArray[1];
+
+    SetSelectDir();
+}
+
+function SetSelectDir() {
+    var dir = $('input[name="dirctions"]:checked').val();
+
+    if (dir == "forward")
+        RouteDownloadManager.DownloadRouteMaster(DirControl._busRelationID, true, DivString);
+    else
+        RouteDownloadManager.DownloadRouteMaster(DirControl._busRelationID, false, DivString);
 }
 
 L.BusDirControl = L.Control.extend({
@@ -80,10 +142,10 @@ L.BusDirControl = L.Control.extend({
         position: 'topright'
     },
 
-    initialize: function(id, options) {
+    initialize: function(options) {
         L.Util.setOptions(this, options);
 
-        this._busRelationID = id;
+        this._busRelationID = 0;
     },
 
     onAdd: function(map) {
@@ -93,7 +155,49 @@ L.BusDirControl = L.Control.extend({
         var OptionContainer = L.DomUtil.create('div', 'dir');
         $(OptionContainer).append(ForwardOption, BackwardOption);
 
-        SetSelectDirection2(this._busRelationID);
+        //SetSelectDir(this._busRelationID);
+
+        return OptionContainer;
+    },
+
+    onRemove: function(map) {
+
+    },
+
+    RefreshRelationID: function(NewId){
+        this._busRelationID = NewId;
+    }
+});
+
+L.BusSelectRouteControl = L.Control.extend({
+    options: {
+        position: 'topleft'
+    },
+
+    initialize: function(ids, options) {
+        L.Util.setOptions(this, options);
+
+        this._RouteElements = ids;
+    },
+
+    onAdd:function(map){
+        var SelectElement = '<select id="selr">';
+        var SelectElementEnd = '</select>';
+
+        var options = "";
+
+        for(var i = 0 ; i < this._RouteElements.length ; i++){
+            var optionE = '<option label="'+ this._RouteElements[i].Name +'" value="'+ this._RouteElements[i].Category + ',' + this._RouteElements[i].RelationID +'">'+ this._RouteElements[i].Name +'</option>';
+
+            //console.log(optionE);
+
+            options += optionE;
+        }
+
+        var OptionContainer = L.DomUtil.create('div', 'selRoute');
+        $(OptionContainer).append(SelectElement + options + SelectElementEnd);
+
+        //SetSelectRoute();
 
         return OptionContainer;
     },
@@ -102,14 +206,3 @@ L.BusDirControl = L.Control.extend({
 
     }
 });
-
-function SetSelectDirection2(id) {
-    var dir = $('input[name="dirctions"]:checked').val();
-
-    //console.log('Test');
-
-    if (dir == "forward")
-        RouteDownloadManager.DownloadRouteMaster(id, true, DivString);
-    else
-        RouteDownloadManager.DownloadRouteMaster(id, false, DivString);
-}
