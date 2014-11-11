@@ -223,7 +223,8 @@ L.TainanBus.DataLayer = L.FeatureGroup.extend({
                     }
 
                     //layer = L.marker(feature.latLng , MarkerOption).bindPopup(this.GetBusStopName(feature.tags));
-                    markers.addLayer(L.marker(feature.latLng, MarkerOption).bindPopup(this.GetBusStopName(feature.tags)));
+                    markers.addLayer(L.marker(feature.latLng, MarkerOption).
+                    bindPopup("<h5>"+ this.GetBusStopName(feature.tags) +"</h5><br>站牌代碼：<b>"+ this.GetBusStopCode(feature.tags) + "</b>"));
                 }
             } else {
                 var latLngs = new Array(feature.nodes.length);
@@ -297,7 +298,7 @@ L.TainanBus.DataLayer = L.FeatureGroup.extend({
     },
 
     GetBusStopName: function(tags) {
-        var Name;
+        var Name = "";
 
         for (var key in tags) {
             if (key == "name") {
@@ -308,6 +309,20 @@ L.TainanBus.DataLayer = L.FeatureGroup.extend({
         }
 
         return Name;
+    },
+
+    GetBusStopCode:function(tags){
+        var Code = 0;
+
+        for (var key in tags) {
+            if (key == "ref") {
+                Code = tags[key];
+                break;
+            }
+            //console.log(key);
+        }
+
+        return Code;
     }
 
 });
