@@ -7,7 +7,7 @@ var ColorSchemeCollect = [];
 
 var RouteDownloadManager;
 
-var RelatimeQueryUrl = "https://www.2384.com.tw/qrcode/vstop";
+var RelatimeQueryUrl = "http://www.2384.com.tw/qrcode/vstop";
 
 $(document).ready(function() {
 
