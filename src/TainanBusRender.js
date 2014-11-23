@@ -6,6 +6,9 @@ var FullQuery = "/full";
 var BusIcon = "Icons/busIcon";
 var BusIcon_Ext = ".png";
 
+var Button_Set = '<button type="button" class="btn btn-default btn-sm" onclick="QueryRealtimeBus(';
+var Button_Set2 = ');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>經過路線/動態</span></button>';
+
 L.TainanBus.IconTemplate = L.Icon.extend({
     options: {
         iconSize: [20, 20],
@@ -219,12 +222,13 @@ L.TainanBus.DataLayer = L.FeatureGroup.extend({
                         icon: RenderManager._currentBusMarker,
                         opacity: 1,
                         zIndexOffset: 1000,
+                        riseOnHover:true,
                         title: this.GetBusStopName(feature.tags)
                     }
 
                     //layer = L.marker(feature.latLng , MarkerOption).bindPopup(this.GetBusStopName(feature.tags));
                     markers.addLayer(L.marker(feature.latLng, MarkerOption).
-                    bindPopup("<h5>"+ this.GetBusStopName(feature.tags) +"</h5><br>站牌代碼：<b>"+ this.GetBusStopCode(feature.tags) + "</b>"));
+                    bindPopup("<h5>"+ this.GetBusStopName(feature.tags) +"</h5><br>站牌代碼：<b>"+ this.GetBusStopCode(feature.tags) + "</b><br>" + Button_Set + this.GetBusStopCode(feature.tags) + Button_Set2));
                 }
             } else {
                 var latLngs = new Array(feature.nodes.length);

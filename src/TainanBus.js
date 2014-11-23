@@ -1,4 +1,3 @@
-
 //Resource Paths
 var routeJsonUrl = "LocalData/BusRoute";
 
@@ -7,6 +6,8 @@ var currentColorScheme;
 var ColorSchemeCollect = [];
 
 var RouteDownloadManager;
+
+var RelatimeQueryUrl = "https://www.2384.com.tw/qrcode/vstop";
 
 $(document).ready(function() {
 
@@ -86,11 +87,11 @@ function SetRoutesList(id) {
     //console.log(currentLineColor);
 
     //Change Color
-    RouteDownloadManager.InitLeafletOption(id , currentColorScheme);
+    RouteDownloadManager.InitLeafletOption(id, currentColorScheme);
 
     $.getJSON(routeJsonUrl + id + routeJsonExtension, function(data) {
         $.each(data, function(i, item) {
-			routeList.append($('<option></option>').text(item.RouteName).attr('value', item.RouteOSMRelation).attr('label', item.RouteFromTo));
+            routeList.append($('<option></option>').text(item.RouteName).attr('value', item.RouteOSMRelation).attr('label', item.RouteFromTo));
         });
 
         $('#SelectRoute').selectpicker('refresh');
@@ -103,7 +104,7 @@ function SetSelectedRoute() {
     var description = $("#RouteDes").empty();
     var SelectedRoute;
     //window.alert($("#SelectRoute option:selected").attr('label'));
-	SelectedRoute = $("#SelectRoute option:selected").attr('label');
+    SelectedRoute = $("#SelectRoute option:selected").attr('label');
 
     currentSelectedRoute = $("#SelectRoute option:selected").attr('value');
 
@@ -118,7 +119,31 @@ function SetSelectDirection() {
     var dir = $('input[name="dirctions"]:checked').val();
 
     if (dir == "forward")
-        RouteDownloadManager.DownloadRouteMaster(currentSelectedRoute, true , null);
+        RouteDownloadManager.DownloadRouteMaster(currentSelectedRoute, true, null);
     else
-        RouteDownloadManager.DownloadRouteMaster(currentSelectedRoute, false , null);
+        RouteDownloadManager.DownloadRouteMaster(currentSelectedRoute, false, null);
+}
+
+function QueryRealtimeBus(stopCode) {
+
+    if (stopCode === 0)
+        window.alert("無站牌號碼!");
+    else {
+        $.ajax({
+            url: RelatimeQueryUrl,
+            dataType: "html",
+            data: {
+                code: stopCode
+            },
+            success: function(html) {
+                bootbox.dialog({
+                    title: "11",
+                    message: $("table[border*='0']").html()
+                });
+            },
+            error: function() {
+
+            }
+        })
+    }
 }
