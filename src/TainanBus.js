@@ -126,7 +126,8 @@ function SetSelectDirection() {
 
 function QueryRealtimeBus(stopCode) {
 
-    if (stopCode === 0)
+    window.alert("無法使用!");
+    /*if (stopCode === 0)
         window.alert("無站牌號碼!");
     else {
         $.ajax({
@@ -145,5 +146,5 @@ function QueryRealtimeBus(stopCode) {
 
             }
         })
-    }
+    }*/
 }
