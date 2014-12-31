@@ -84,6 +84,12 @@
 		"RouteCode":10161
 	},
 	{
+		"RouteName":"19路",
+		"RouteFromTo":"安平─大灣",
+		"RouteOSMRelation":4444913,
+		"RouteCode":10019
+	},
+	{
 		"RouteName":"20路",
 		"RouteFromTo":"崑山科大─安南醫院",
 		"RouteOSMRelation":4020969,
