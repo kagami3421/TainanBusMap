@@ -120,8 +120,14 @@ function SetSelectRoute() {
 
     RouteDownloadManager.InitLeafletOption(SelectedElementArray[0], currentScheme);
 
-    if(DirControl !== undefined)
+    if(DirControl !== undefined){
         DirControl.RefreshRelationID(SelectedElementArray[1]);
+        if(SelectedElementArray[1] === '0L' || SelectedElementArray[1] === '0R'){
+            DirControl.ToggleVisible(false);
+        }
+        else
+            DirControl.ToggleVisible(true);
+    }
 
     //currentRelation = SelectedElementArray[1];
 
@@ -131,10 +137,16 @@ function SetSelectRoute() {
 function SetSelectDir() {
     var dir = $('input[name="direction"]:checked').val();
 
-    if (dir == "forward")
+    if(DirControl._busRelationID === '0L' || DirControl._busRelationID === '0R'){
         RouteDownloadManager.DownloadRouteMaster(DirControl._busRelationID, true, DivString);
-    else
-        RouteDownloadManager.DownloadRouteMaster(DirControl._busRelationID, false, DivString);
+    }
+    else{
+        if (dir == "forward")
+            RouteDownloadManager.DownloadRouteMaster(DirControl._busRelationID, true, DivString);
+        else
+            RouteDownloadManager.DownloadRouteMaster(DirControl._busRelationID, false, DivString);
+    }
+
 }
 
 L.BusDirControl = L.Control.extend({
@@ -166,6 +178,16 @@ L.BusDirControl = L.Control.extend({
 
     RefreshRelationID: function(NewId){
         this._busRelationID = NewId;
+    },
+
+    ToggleVisible : function(toogle){
+        var element = $(".dir");
+        if(element !== undefined){
+            if(toggle === true)
+                element.css('visibility', 'visible');
+            else if(toggle === false)
+                element.css('visibility', 'hidden');
+        }
     }
 });
 
