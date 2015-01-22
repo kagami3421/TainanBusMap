@@ -67,7 +67,8 @@ function GetRouteByCode(code , isMulti) {
                         var Element = {
                             Category: item.RouteCategory,
                             RelationID: item.RouteOSMRelation,
-                            Name: item.RouteName
+                            Name: item.RouteName,
+                            Code: item.RouteCodeName
                         }
 
                         RouteElements.push(Element);
@@ -121,10 +122,10 @@ function SetSelectRoute() {
     RouteDownloadManager.InitLeafletOption(SelectedElementArray[0], currentScheme);
 
     if(DirControl !== undefined){
-        DirControl.RefreshRelationID(SelectedElementArray[1]);
-        if(SelectedElementArray[1] === '0L' || SelectedElementArray[1] === '0R'){
+        DirControl.RefreshRelationID(SelectedElementArray[1],SelectedElementArray[2]);
+
+        if(SelectedElementArray[2] === '0L' || SelectedElementArray[2] === '0R')
             DirControl.ToggleVisible(false);
-        }
         else
             DirControl.ToggleVisible(true);
     }
@@ -137,16 +138,14 @@ function SetSelectRoute() {
 function SetSelectDir() {
     var dir = $('input[name="direction"]:checked').val();
 
-    if(DirControl._busRelationID === '0L' || DirControl._busRelationID === '0R'){
+    if(DirControl._busRelationCode === '0L' || DirControl._busRelationCode === '0R')
         RouteDownloadManager.DownloadRouteMaster(DirControl._busRelationID, true, DivString);
-    }
     else{
         if (dir == "forward")
             RouteDownloadManager.DownloadRouteMaster(DirControl._busRelationID, true, DivString);
         else
             RouteDownloadManager.DownloadRouteMaster(DirControl._busRelationID, false, DivString);
     }
-
 }
 
 L.BusDirControl = L.Control.extend({
@@ -158,6 +157,7 @@ L.BusDirControl = L.Control.extend({
         L.Util.setOptions(this, options);
 
         this._busRelationID = 0;
+        this._busRelationCode = '';
     },
 
     onAdd: function(map) {
@@ -176,8 +176,9 @@ L.BusDirControl = L.Control.extend({
 
     },
 
-    RefreshRelationID: function(NewId){
+    RefreshRelationID: function(NewId , NewCode){
         this._busRelationID = NewId;
+        this._busRelationCode = NewCode;
     },
 
     ToggleVisible : function(toggle){
@@ -209,7 +210,7 @@ L.BusSelectRouteControl = L.Control.extend({
         var options = "";
 
         for(var i = 0 ; i < this._RouteElements.length ; i++){
-            var optionE = '<option label="'+ this._RouteElements[i].Name +'" value="'+ this._RouteElements[i].Category + ',' + this._RouteElements[i].RelationID +'">'+ this._RouteElements[i].Name +'</option>';
+            var optionE = '<option label="'+ this._RouteElements[i].Name +'" value="'+ this._RouteElements[i].Category + ',' + this._RouteElements[i].RelationID + ',' + this._RouteElements[i].Code + '">'+ this._RouteElements[i].Name +'</option>';
 
             //console.log(optionE);
 
