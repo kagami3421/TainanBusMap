@@ -98,6 +98,13 @@
 		"RouteCategory":1
 	},
 	{
+		"RouteCodeName":"19",
+		"RouteName":"19路",
+		"RouteOSMRelation":4444913,
+		"RouteCode":10019,
+		"RouteCategory":1
+	},
+	{
 		"RouteCodeName":"20",
 		"RouteName":"20路",
 		"RouteOSMRelation":4020969,

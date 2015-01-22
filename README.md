@@ -55,7 +55,7 @@ http://kagami3421.github.io/TainanBusMap
 * 新增以下HTML片段到body元素尾端：
 
 ```html
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="js/jquery.blockUI.js"></script>
 <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 <script src="js/leaflet.markercluster.js"></script>
