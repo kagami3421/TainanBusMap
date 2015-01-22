@@ -46,7 +46,7 @@ http://kagami3421.github.io/TainanBusMap
 * 新增以下HTML片段到header元素內：
 
 ```html
-<link href="build/TDivBus.min.css" rel="stylesheet" />
+<link href="build/TDivbus.min.css" rel="stylesheet" />
 <link href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" rel="stylesheet" />
 <link href="css/MarkerCluster.css" rel="stylesheet" />
 <link href="css/MarkerCluster.Default.css" rel="stylesheet" />
