@@ -180,7 +180,7 @@ L.BusDirControl = L.Control.extend({
         this._busRelationID = NewId;
     },
 
-    ToggleVisible : function(toogle){
+    ToggleVisible : function(toggle){
         var element = $(".dir");
         if(element !== undefined){
             if(toggle === true)
