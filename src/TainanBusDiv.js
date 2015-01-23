@@ -81,20 +81,21 @@ function GetRouteByCode(code , isMulti) {
                 window.alert("編號有誤!");
             }
             else {
+                //Add Route Select Dropdown-box
                 map.addControl(new L.BusSelectRouteControl(RouteElements));
-
-                //console.log(RouteElements);
 
                 if(DirControl === undefined){
                     DirControl = new L.BusDirControl();
                     map.addControl(DirControl);
                 }
 
+                //Single Route should hidden the control
                 if(isMulti === false){
                     $('.selRoute').css('visibility', 'hidden');
                     $('#selr').css('visibility', 'hidden');
                 }
 
+                //Init
                 SetSelectRoute();
 
                 //Event Binding
@@ -102,6 +103,7 @@ function GetRouteByCode(code , isMulti) {
                     SetSelectRoute();
                 });
 
+                //Event Binding
                 $('input[name="direction"]:radio').change(function() {
                     SetSelectDir();
                 });
@@ -113,24 +115,22 @@ function GetRouteByCode(code , isMulti) {
 function SetSelectRoute() {
     var SelectedElement = $("#selr option:selected").attr('value');
 
-    //console.log(SelectedElement);
-
     var SelectedElementArray = SelectedElement.split(",");
 
     currentScheme = ColorSchemeCollect[SelectedElementArray[0] - 1];
 
     RouteDownloadManager.InitLeafletOption(SelectedElementArray[0], currentScheme);
 
+    //Refresh content of the direction control
     if(DirControl !== undefined){
         DirControl.RefreshRelationID(SelectedElementArray[1],SelectedElementArray[2]);
 
-        if(SelectedElementArray[2] === '0L' || SelectedElementArray[2] === '0R')
+
+        if(SelectedElementArray[2] === '0L' || SelectedElementArray[2] === '0R' || SelectedElementArray[2] === '0')
             DirControl.ToggleVisible(false);
         else
             DirControl.ToggleVisible(true);
     }
-
-    //currentRelation = SelectedElementArray[1];
 
     SetSelectDir();
 }
@@ -138,7 +138,7 @@ function SetSelectRoute() {
 function SetSelectDir() {
     var dir = $('input[name="direction"]:checked').val();
 
-    if(DirControl._busRelationCode === '0L' || DirControl._busRelationCode === '0R')
+    if(DirControl._busRelationCode === '0L' || DirControl._busRelationCode === '0R' || SelectedElementArray[2] === '0')
         RouteDownloadManager.DownloadRouteMaster(DirControl._busRelationID, true, DivString);
     else{
         if (dir == "forward")
