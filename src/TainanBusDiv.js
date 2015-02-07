@@ -138,7 +138,7 @@ function SetSelectRoute() {
 function SetSelectDir() {
     var dir = $('input[name="direction"]:checked').val();
 
-    if(DirControl._busRelationCode === '0L' || DirControl._busRelationCode === '0R' || SelectedElementArray[2] === '0')
+    if(DirControl._busRelationCode === '0L' || DirControl._busRelationCode === '0R' || DirControl._busRelationCode === '0')
         RouteDownloadManager.DownloadRouteMaster(DirControl._busRelationID, true, DivString);
     else{
         if (dir == "forward")
