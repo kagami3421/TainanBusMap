@@ -24,6 +24,12 @@
 		"RouteCode":1603
 	},
 	{
+		"RouteName":"奇美博物館假日公車(紅3-1)",
+		"RouteFromTo":"保安轉運站─奇美博物館",
+		"RouteOSMRelation":5166423,
+		"RouteCode":1603
+	},
+	{
 		"RouteName":"紅4",
 		"RouteFromTo":"火車站─臺南都會公園",
 		"RouteOSMRelation":4055900,

@@ -147,6 +147,13 @@
 		"RouteCategory":2
 	},
 	{
+		"RouteCodeName":"R3-1",
+		"RouteName":"奇美博物館假日公車(紅3-1)",
+		"RouteOSMRelation":5166423,
+		"RouteCode":1603,
+		"RouteCategory":2
+	},
+	{
 		"RouteCodeName":"R4",
 		"RouteName":"紅4",
 		"RouteOSMRelation":4055900,
