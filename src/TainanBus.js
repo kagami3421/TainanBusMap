@@ -7,8 +7,6 @@ var ColorSchemeCollect = [];
 
 var RouteDownloadManager;
 
-var RelatimeQueryUrl = "http://www.2384.com.tw/qrcode/vstop";
-
 $(document).ready(function() {
 
     map = L.map('map').setView([23.1852, 120.4287], 11);
@@ -126,25 +124,5 @@ function SetSelectDirection() {
 
 function QueryRealtimeBus(stopCode) {
 
-    if (stopCode === 0)
-        window.alert("無站牌號碼!");
-    else {
-        $.ajax({
-            url: RelatimeQueryUrl,
-            dataType: 'html',
-            data: { code : stopCode },
-            crossOrigin: true,
-            proxy: "http://osmkagami.2fh.co/proxy.php"
-        })
-        .done(function(data) {
-            console.log("done" + data);
-        })
-        .fail(function(data) {
-            console.log("error" + data);
-        })
-        .always(function(data) {
-            console.log("complete" + data);
-        });
-        
-    }
+    window.alert("無法使用!");
 }
