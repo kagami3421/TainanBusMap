@@ -7,7 +7,7 @@ var ColorSchemeCollect = [];
 
 var RouteDownloadManager;
 
-var RelatimeQueryUrl = "http://tourguide.tainan.gov.tw/NewTNBusAPI/API/GetPathFromStopId.ashx";
+var RelatimeQueryUrl = "http://www.2384.com.tw/qrcode/vstop";
 
 $(document).ready(function() {
 
@@ -126,15 +126,25 @@ function SetSelectDirection() {
 
 function QueryRealtimeBus(stopCode) {
 
-    window.alert("無法使用!");
-    /*if (stopCode === 0)
+    if (stopCode === 0)
         window.alert("無站牌號碼!");
     else {
-        $.getJSON(RelatimeQueryUrl , { stopid : stopCode } , function(data) {
-            window.alert(data);
-            $.each(data, function(i, item) {
-                window.alert(item.Time);
-            });
+        $.ajax({
+            url: RelatimeQueryUrl,
+            dataType: 'html',
+            data: { code : stopCode },
+            crossOrigin: true,
+            proxy: "http://osmkagami.2fh.co/proxy.php"
+        })
+        .done(function(data) {
+            console.log("done" + data);
+        })
+        .fail(function(data) {
+            console.log("error" + data);
+        })
+        .always(function(data) {
+            console.log("complete" + data);
         });
-    }*/
+        
+    }
 }
