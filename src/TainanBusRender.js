@@ -71,7 +71,7 @@ L.TainanBus.RenderManager = L.Class.extend({
 
                 var loop = 0; //Check Dir is null or not
 
-                _thisClass.BlockingMask(true,targetDiv);
+                _thisClass.BlockingMask({enable:true},targetDiv);
 
                 for (var i = 0; i < currentRouteRelation.length; i++) {
                     if (currentRouteRelation[i].Direction === dir) {
@@ -92,7 +92,7 @@ L.TainanBus.RenderManager = L.Class.extend({
                 }
 
                 window.setTimeout(function(){
-                    _thisClass.BlockingMask(false,targetDiv);
+                    _thisClass.BlockingMask({enable:false},targetDiv);
                 },2000);
             },
             error: function() {
@@ -108,7 +108,7 @@ L.TainanBus.RenderManager = L.Class.extend({
         });
     },
 
-    RenderRoute: function(id, isExtend , callFunction) {
+    RenderRoute: function(id, RouteType , callFunction) {
 
         var _thisClass = this;
 
@@ -116,9 +116,9 @@ L.TainanBus.RenderManager = L.Class.extend({
             url: OSMAPIUrl + id + FullQuery,
             dataType: "xml",
             success: function(xml) {
-                layer = new L.TainanBus.DataLayer(xml, isExtend, _thisClass).addTo(map);
+                layer = new L.TainanBus.DataLayer(xml, RouteType, _thisClass).addTo(map);
 
-                if(isExtend === false)
+                if(RouteType === "MainRoute")
                     map.fitBounds(layer.getBounds());
 
                 if(callFunction !== null)
@@ -135,8 +135,8 @@ L.TainanBus.RenderManager = L.Class.extend({
         
     },
 
-    BlockingMask: function(enable, div) {
-        if (enable === true) {
+    BlockingMask: function(Obj, div) {
+        if (Obj.enable === true) {
             if (div == undefined || div == null) {
                 $.blockUI({
                     message: '<h1>載入中...</h1>',
@@ -184,7 +184,7 @@ L.TainanBus.DataLayer = L.FeatureGroup.extend({
         styles: {}
     },
 
-    initialize: function(xml, isExtend, RenderManager, options) {
+    initialize: function(xml, RouteType, RenderManager, options) {
         L.Util.setOptions(this, options);
 
         //console.log(isExtend);
@@ -194,11 +194,11 @@ L.TainanBus.DataLayer = L.FeatureGroup.extend({
         L.FeatureGroup.prototype.initialize.call(this);
 
         if (xml) {
-            this.addData(xml, isExtend, RenderManager);
+            this.addData(xml, RouteType, RenderManager);
         }
     },
 
-    addData: function(features, isExtend, RenderManager) {
+    addData: function(features, RouteType, RenderManager) {
 
         var MakerClusterOptions = {
             showCoverageOnHover: false,
@@ -237,9 +237,9 @@ L.TainanBus.DataLayer = L.FeatureGroup.extend({
                     latLngs[j] = feature.nodes[j].latLng;
                 }
 
-                if (isExtend == false)
+                if (RouteType === "MainRoute")
                     layer = L.polyline(latLngs, RenderManager._BusMainRouteLineOptions);
-                else
+                else if (RouteType === "ExtendRoute")
                     layer = L.polyline(latLngs, RenderManager._BusExtendRouteLineOptions);
             }
 
@@ -390,42 +390,42 @@ L.Util.extend(L.TainanBus, {
             for (var j = 0; j < members.length; j++) {
                 if (members[j].getAttribute("type") === "relation") {
 
-                    var ExtendBool = false;
+                    var Extend = "MainRoute";
                     var Dir = "forward";
 
                     switch (members[j].getAttribute("role")) {
                         case "forward":
                             {
-                                Dir = true;
-                                ExtendBool = false;
+                                Dir = "forward";
+                                Extend = "MainRoute";
                             }
                             break;
 
                         case "backward":
                             {
-                                Dir = false;
-                                ExtendBool = false;
+                                Dir = "backward";
+                                Extend = "MainRoute";
                             }
                             break;
 
                         case "forward_extend":
                             {
-                                Dir = true;
-                                ExtendBool = true;
+                                Dir = "forward";
+                                Extend = "ExtendRoute";
                             }
                             break;
 
                         case "backward_extend":
                             {
-                                Dir = false;
-                                ExtendBool = true;
+                                Dir = "backward";
+                                Extend = "ExtendRoute";
                             }
                             break;
                     }
 
                     var SingleResult = {
                         Ref: members[j].getAttribute("ref"),
-                        Extend: ExtendBool,
+                        Extend: Extend,
                         Direction: Dir
                     }
 
