@@ -42,6 +42,12 @@
 		"RouteCode":1506
 	},
 	{
+		"RouteName":"農村樂活公車(黃6-1)",
+		"RouteFromTo":"新營─菁寮─土溝",
+		"RouteOSMRelation":5343182,
+		"RouteCode":1802
+	},
+	{
 		"RouteName":"黃7",
 		"RouteFromTo":"新營─東山─青山",
 		"RouteOSMRelation":4096828,
