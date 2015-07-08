@@ -1,7 +1,9 @@
 //Resource Paths
 var routeJsonUrl = "LocalData/BusRoute";
 
-var currentSelectedRoute; // Current Selected Route Number
+var routeInfoUrl = "http://www.2384.com.tw/ebus/pathInfo.jsp?pathId=";
+
+var currentSelectedRouteArray;
 var currentColorScheme;
 var ColorSchemeCollect = [];
 
@@ -37,6 +39,11 @@ $(document).ready(function() {
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
+    });
+
+    $("#Info_toggle").click(function(e) {
+        e.preventDefault();
+        window.open(routeInfoUrl + currentSelectedRouteArray[1] , currentSelectedRouteArray[1]);
     });
 });
 
@@ -89,7 +96,7 @@ function SetRoutesList(id) {
 
     $.getJSON(routeJsonUrl + id + routeJsonExtension, function(data) {
         $.each(data, function(i, item) {
-            routeList.append($('<option></option>').text(item.RouteName).attr('value', item.RouteOSMRelation).attr('label', item.RouteFromTo));
+            routeList.append($('<option></option>').text(item.RouteName).attr('value', item.RouteOSMRelation + ',' + item.RouteCode).attr('label', item.RouteFromTo));
         });
 
         $('#SelectRoute').selectpicker('refresh');
@@ -104,7 +111,9 @@ function SetSelectedRoute() {
     //window.alert($("#SelectRoute option:selected").attr('label'));
     SelectedRoute = $("#SelectRoute option:selected").attr('label');
 
-    currentSelectedRoute = $("#SelectRoute option:selected").attr('value');
+    var currentSelectedRoute = $("#SelectRoute option:selected").attr('value');
+
+    currentSelectedRouteArray = currentSelectedRoute.split(",");
 
     if (SelectedRoute !== undefined && description !== undefined) {
         description.text(SelectedRoute);
@@ -116,10 +125,7 @@ function SetSelectedRoute() {
 function SetSelectDirection() {
     var dir = $('input[name="dirctions"]:checked').val();
 
-    //if (dir == "forward")
-        RouteDownloadManager.DownloadRouteMaster(currentSelectedRoute, dir, null);
-    /* else
-        RouteDownloadManager.DownloadRouteMaster(currentSelectedRoute, false, null); */
+    RouteDownloadManager.DownloadRouteMaster(currentSelectedRouteArray[0], dir, null);
 }
 
 function QueryRealtimeBus(stopCode) {

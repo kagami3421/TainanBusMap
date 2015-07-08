@@ -132,7 +132,7 @@ L.TainanBus.RenderManager = L.Class.extend({
             }
         });
 
-        
+
     },
 
     BlockingMask: function(Obj, div) {
@@ -167,12 +167,12 @@ L.TainanBus.RenderManager = L.Class.extend({
                     }
                 });
             }
-        } 
+        }
         else {
             if(div == null || div == undefined)
                 $.unblockUI();
             else
-                $(div).unblock(); 
+                $(div).unblock();
         }
     }
 });

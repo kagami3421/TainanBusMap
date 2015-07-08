@@ -26,26 +26,10 @@ module.exports = function(grunt) {
                     'build/TDivbus.min.css': ['src/TDivBus.css']
                 }
             }
-        },
-        /*processhtml: {
-            options: {
-                process: true
-            },
-            dist: {
-                files: {
-                    'index.html': ['src/index_src.html'],
-                    'DivTest.html': ['src/DivTest_src.html']
-                }
-            }
-        }*/
+        }
     });
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
-
-    //grunt.loadNpmTasks('grunt-processhtml');
-
     grunt.registerTask('default', ['uglify','cssmin']);
-
-    //grunt.registerTask('build_html', ['processhtml']);
 };
