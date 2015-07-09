@@ -3,6 +3,8 @@ var routeJsonUrl = "LocalData/BusRoute";
 
 var routeInfoUrl = "http://www.2384.com.tw/ebus/pathInfo.jsp?pathId=";
 
+var RealtimeBusURL = "http://www.2384.com.tw/qrcode/vstop?code=";
+
 var currentSelectedRouteArray;
 var currentColorScheme;
 var ColorSchemeCollect = [];
@@ -130,5 +132,6 @@ function SetSelectDirection() {
 
 function QueryRealtimeBus(stopCode) {
 
-    window.alert("無法使用!");
+    //window.alert("無法使用!");
+    window.open(RealtimeBusURL + stopCode , stopCode);
 }
