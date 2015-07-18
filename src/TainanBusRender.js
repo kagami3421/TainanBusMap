@@ -6,8 +6,7 @@ var FullQuery = "/full";
 var BusIcon = "Icons/busIcon";
 var BusIcon_Ext = ".png";
 
-var Button_Set = '<button type="button" class="btn btn-default btn-sm" onclick="QueryRealtimeBus(';
-var Button_Set2 = ');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>經過路線/動態</span></button>';
+var Button_Set = '<button type="button" class="btn btn-default btn-sm" id="quetyBtn"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>經過路線/動態</span></button>';
 
 L.TainanBus.IconTemplate = L.Icon.extend({
     options: {
@@ -61,6 +60,8 @@ L.TainanBus.RenderManager = L.Class.extend({
             };
         }
 
+        $(".leaflet-popup-pane").off("click","#quetyBtn",QueryRealtimeBus);
+
         var _thisClass = this;
 
         $.ajax({
@@ -90,6 +91,8 @@ L.TainanBus.RenderManager = L.Class.extend({
                     else
                         bootbox.alert("此路線為單向行駛!");
                 }
+
+                $(".leaflet-popup-pane").on("click","#quetyBtn",QueryRealtimeBus);
 
                 window.setTimeout(function(){
                     _thisClass.BlockingMask({enable:false},targetDiv);
@@ -227,8 +230,9 @@ L.TainanBus.DataLayer = L.FeatureGroup.extend({
                     }
 
                     //layer = L.marker(feature.latLng , MarkerOption).bindPopup(this.GetBusStopName(feature.tags));
-                    markers.addLayer(L.marker(feature.latLng, MarkerOption).
-                    bindPopup("<h5>"+ this.GetBusStopName(feature.tags) +"</h5><br>站牌代碼：<b>"+ this.GetBusStopCode(feature.tags) + "</b><br>" + Button_Set + this.GetBusStopCode(feature.tags) + Button_Set2));
+                    markers.addLayer(
+                    L.marker(feature.latLng, MarkerOption).
+                    bindPopup("<h5>"+ this.GetBusStopName(feature.tags) +"</h5><br>站牌代碼：<b id='codeID'>"+ this.GetBusStopCode(feature.tags) + "</b><br>" + Button_Set));
                 }
             } else {
                 var latLngs = new Array(feature.nodes.length);
@@ -328,7 +332,6 @@ L.TainanBus.DataLayer = L.FeatureGroup.extend({
 
         return Code;
     }
-
 });
 
 L.Util.extend(L.TainanBus, {

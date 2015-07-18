@@ -130,8 +130,7 @@ function SetSelectDirection() {
     RouteDownloadManager.DownloadRouteMaster(currentSelectedRouteArray[0], dir, null);
 }
 
-function QueryRealtimeBus(stopCode) {
-
-    //window.alert("無法使用!");
-    window.open(RealtimeBusURL + stopCode , stopCode);
+function QueryRealtimeBus() {
+      var StopCode = $("#codeID").text();
+      window.open(RealtimeBusURL + StopCode , StopCode);
 }
