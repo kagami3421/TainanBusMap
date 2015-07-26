@@ -1,5 +1,11 @@
 [
 	{
+		"RouteName":"66關子嶺線",
+		"RouteFromTo":"新營─烏山頭─關子嶺",
+		"RouteOSMRelation":5392668,
+		"RouteCode":6066
+	},
+	{
 		"RouteName":"88安平線",
 		"RouteFromTo":"台南公園─觀夕平台",
 		"RouteOSMRelation":4099165,
