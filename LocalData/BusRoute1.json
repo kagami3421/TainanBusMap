@@ -78,6 +78,12 @@
 		"RouteCode":10452
 	},
 	{
+		"RouteName":"17路",
+		"RouteFromTo":"原住民文化會館─興達港觀光漁市",
+		"RouteOSMRelation":5420056,
+		"RouteCode":10017
+	},
+	{
 		"RouteName":"18路",
 		"RouteFromTo":"台南站─塭南里",
 		"RouteOSMRelation":3966183,
