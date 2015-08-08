@@ -5,6 +5,7 @@ var RouteDownloadManager;
 var DivString = '#map';
 
 var DirControl;
+var InfoControl;
 var ColorSchemeCollect = [];
 var RouteElements = [];
 
@@ -32,9 +33,9 @@ function CreateBusMap(id) {
     }).addTo(map);
 
     if(id.search(",") === -1)
-        GetRouteByCode(id , false);
+        GetRouteByCode(id , 'NoMulti');
     else
-        GetRouteByCode(id , true);
+        GetRouteByCode(id , 'Multi');
 }
 
 function GetRouteByCode(code , isMulti) {
@@ -50,7 +51,7 @@ function GetRouteByCode(code , isMulti) {
             ColorSchemeCollect.push(ColorScheme);
         });
 
-        if(isMulti === true)
+        if(isMulti === 'Multi')
             var eachIdCode = code.split(",");
         else{
             var eachIdCode = [];
@@ -68,7 +69,10 @@ function GetRouteByCode(code , isMulti) {
                             Category: item.RouteCategory,
                             RelationID: item.RouteOSMRelation,
                             Name: item.RouteName,
-                            Code: item.RouteCodeName
+                            Code: item.RouteCodeName,
+                            CodeNum: item.RouteCode,
+                            OneWay: item.OneWayRoute !== undefined
+
                         }
 
                         RouteElements.push(Element);
@@ -89,8 +93,13 @@ function GetRouteByCode(code , isMulti) {
                     map.addControl(DirControl);
                 }
 
+                if(InfoControl === undefined){
+                    InfoControl = new L.BusInfoControl();
+                    map.addControl(InfoControl);
+                }
+
                 //Single Route should hidden the control
-                if(isMulti === false){
+                if(isMulti === 'NoMulti'){
                     $('.selRoute').css('visibility', 'hidden');
                     $('#selr').css('visibility', 'hidden');
                 }
@@ -123,13 +132,16 @@ function SetSelectRoute() {
 
     //Refresh content of the direction control
     if(DirControl !== undefined){
-        DirControl.RefreshRelationID(SelectedElementArray[1],SelectedElementArray[2]);
+        DirControl.RefreshRelationID(SelectedElementArray[1]);
 
-
-        if(SelectedElementArray[2] === '0L' || SelectedElementArray[2] === '0R' || SelectedElementArray[2] === '0')
+        if(SelectedElementArray[3] === 'true')
             DirControl.ToggleVisible(false);
         else
             DirControl.ToggleVisible(true);
+    }
+
+    if(InfoControl !== undefined){
+        InfoControl.RefreshRelationCode(SelectedElementArray[4]);
     }
 
     SetSelectDir();
@@ -138,15 +150,41 @@ function SetSelectRoute() {
 function SetSelectDir() {
     var dir = $('input[name="direction"]:checked').val();
 
-    if(DirControl._busRelationCode === '0L' || DirControl._busRelationCode === '0R' || DirControl._busRelationCode === '0')
-        RouteDownloadManager.DownloadRouteMaster(DirControl._busRelationID, true, DivString);
-    else{
-        if (dir == "forward")
-            RouteDownloadManager.DownloadRouteMaster(DirControl._busRelationID, true, DivString);
-        else
-            RouteDownloadManager.DownloadRouteMaster(DirControl._busRelationID, false, DivString);
-    }
+    RouteDownloadManager.DownloadRouteMaster(DirControl._busRelationID, dir, DivString);
 }
+
+function QueryRealtimeBus() {
+      var StopCode = $("#codeID").text();
+      window.open(RealtimeBusURL + StopCode , StopCode);
+}
+
+L.BusInfoControl = L.Control.extend({
+    options: {
+        position: 'bottomleft'
+      },
+
+    initialize: function(options) {
+        L.Util.setOptions(this, options);
+
+        this._busRelationCode = 0;
+    },
+
+    onAdd: function(map){
+        var OptionContainer = L.DomUtil.create('div', 'info');
+        $(OptionContainer).html('<a id="rLink" href="#">路線資訊</a>');
+
+        return OptionContainer;
+    },
+
+    onRemove: function(map) {
+
+    },
+
+    RefreshRelationCode: function(NewCode){
+        this._busRelationCode = NewCode;
+        $('#rLink').html('<a id="rLink" href="' + routeInfoUrl + this._busRelationCode + '" target="_blank">路線資訊</a>');
+    }
+});
 
 L.BusDirControl = L.Control.extend({
     options: {
@@ -157,7 +195,6 @@ L.BusDirControl = L.Control.extend({
         L.Util.setOptions(this, options);
 
         this._busRelationID = 0;
-        this._busRelationCode = '';
     },
 
     onAdd: function(map) {
@@ -176,9 +213,8 @@ L.BusDirControl = L.Control.extend({
 
     },
 
-    RefreshRelationID: function(NewId , NewCode){
+    RefreshRelationID: function(NewId){
         this._busRelationID = NewId;
-        this._busRelationCode = NewCode;
     },
 
     ToggleVisible : function(toggle){
@@ -210,7 +246,7 @@ L.BusSelectRouteControl = L.Control.extend({
         var options = "";
 
         for(var i = 0 ; i < this._RouteElements.length ; i++){
-            var optionE = '<option label="'+ this._RouteElements[i].Name +'" value="'+ this._RouteElements[i].Category + ',' + this._RouteElements[i].RelationID + ',' + this._RouteElements[i].Code + '">'+ this._RouteElements[i].Name +'</option>';
+            var optionE = '<option label="'+ this._RouteElements[i].Name +'" value="'+ this._RouteElements[i].Category + ',' + this._RouteElements[i].RelationID + ',' + this._RouteElements[i].Code + ',' + this._RouteElements[i].OneWay + ',' + this._RouteElements[i].CodeNum + '">'+ this._RouteElements[i].Name +'</option>';
 
             //console.log(optionE);
 

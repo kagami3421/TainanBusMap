@@ -86,7 +86,7 @@ L.TainanBus.RenderManager = L.Class.extend({
 
                 if (loop == 0) {
 
-                    if(bootbox === undefined)
+                    if(typeof(bootbox) === 'undefined')
                         window.alert("此路線為單向行駛!");
                     else
                         bootbox.alert("此路線為單向行駛!");
@@ -99,7 +99,7 @@ L.TainanBus.RenderManager = L.Class.extend({
                 },2000);
             },
             error: function() {
-                if(bootbox === undefined)
+                if(typeof(bootbox) === 'undefined')
                     window.alert("資料載入失敗!");
                 else
                     bootbox.alert("資料載入失敗!");
@@ -128,7 +128,7 @@ L.TainanBus.RenderManager = L.Class.extend({
                     callFunction(layer);
             },
             error: function() {
-                if(bootbox === undefined)
+                if(typeof(bootbox) === 'undefined')
                     window.alert("資料載入失敗!");
                 else
                     bootbox.alert("資料載入失敗!");

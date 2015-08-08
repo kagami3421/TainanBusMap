@@ -1,10 +1,6 @@
 //Resource Paths
 var routeJsonUrl = "LocalData/BusRoute";
 
-var routeInfoUrl = "http://www.2384.com.tw/ebus/pathInfo.jsp?pathId=";
-
-var RealtimeBusURL = "http://www.2384.com.tw/qrcode/vstop?code=";
-
 var currentSelectedRouteArray;
 var currentColorScheme;
 var ColorSchemeCollect = [];
