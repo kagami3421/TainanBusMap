@@ -24,24 +24,27 @@
 </head>
 
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
+    <header>
+      <button type="button" class="btn btn-default navbar-btn" id="options">
+          <span class="glyphicon glyphicon-cog"></span>
+      </button>
+      <a class="navbar-brand">臺南市公車路線地圖</a>
+      <p class="navbar-text">By Kagami</p>
+    </header>
+
+    <section id="map"></section>
+
+    <!-- <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="btn btn-default navbar-btn" id="menu-toggle">
-                    <span class="glyphicon glyphicon-th-list"></span>
-                </button>
-                <a class="navbar-brand">臺南市公車路線地圖</a>
-                <p class="navbar-text">By Kagami</p>
+
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <div id="wrapper">
-        <div id="sidebar-wrapper">
+    <nav id="wrapper">
             <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">Start Bootstrap</a>
-                </li>
                 <li>
                     <p>是否顯示站牌：
                         <input type="checkbox" id="ShowBusStop" checked="checked">
@@ -83,14 +86,7 @@
                     </button>
                 </li>
             </ul>
-        </div>
-
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div id="map"></div>
-            </div>
-        </div>
-    </div>
+    </nav>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

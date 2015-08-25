@@ -25,5 +25,6 @@
     "grunt-contrib-uglify": "^0.6.0",
     "grunt-processhtml": "^0.3.3",
     "grunt-string-replace": "^1.0.0"
-  }
+  },
+  "license": "GPL-2.0"
 }
