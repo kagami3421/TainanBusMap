@@ -34,11 +34,6 @@ $(document).ready(function() {
         //console.log("Change!");
     });
 
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-
     $("#Info_toggle").click(function(e) {
         e.preventDefault();
         window.open(routeInfoUrl + currentSelectedRouteArray[1] , currentSelectedRouteArray[1]);

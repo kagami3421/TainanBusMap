@@ -219,7 +219,7 @@ L.TainanBus.DataLayer = L.FeatureGroup.extend({
                 layer;
 
             if (feature.type === "node") {
-                if (this.CheckEnableBusStop()) {
+                //if (this.CheckEnableBusStop()) {
 
                     var MarkerOption = {
                         icon: RenderManager._currentBusMarker,
@@ -233,7 +233,7 @@ L.TainanBus.DataLayer = L.FeatureGroup.extend({
                     markers.addLayer(
                     L.marker(feature.latLng, MarkerOption).
                     bindPopup("<h5>"+ this.GetBusStopName(feature.tags) +"</h5><br>站牌代碼：<b id='codeID'>"+ this.GetBusStopCode(feature.tags) + "</b><br>" + Button_Set));
-                }
+                //}
             } else {
                 var latLngs = new Array(feature.nodes.length);
 
@@ -293,7 +293,7 @@ L.TainanBus.DataLayer = L.FeatureGroup.extend({
         return bIsBusStop;
     },
 
-    CheckEnableBusStop: function() {
+    /* CheckEnableBusStop: function() {
 
         var checked = false;
         var checkedElement = $("#ShowBusStop:checked");
@@ -303,7 +303,7 @@ L.TainanBus.DataLayer = L.FeatureGroup.extend({
             checked = true;
 
         return checked;
-    },
+    }, */
 
     GetBusStopName: function(tags) {
         var Name = "";
