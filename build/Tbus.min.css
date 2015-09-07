@@ -1,3 +1,3 @@
-/*! TainanBusMap 2015-09-06 */
+/*! TainanBusMap 2015-09-07 */
 
-#container,body,html{height:100%;width:100%;overflow:hidden}#map{width:auto;height:100%;box-shadow:0 0 10px rgba(0,0,0,.5)}
+#container,body,html{height:100%;width:100%;overflow:hidden}body{padding-top:50px}#map{width:auto;height:100%}
