@@ -97,7 +97,7 @@
 	},
 	{
 		"RouteName":"20路",
-		"RouteFromTo":"崑山科大─安南醫院",
+		"RouteFromTo":"崑山科大─海東國小",
 		"RouteOSMRelation":4020969,
 		"RouteCode":10020
 	},
@@ -106,5 +106,11 @@
 		"RouteFromTo":"火車站─永康工業區",
 		"RouteOSMRelation":4019361,
 		"RouteCode":10021
+	},
+	{
+		"RouteName":"77路",
+		"RouteFromTo":"原住民文化會館─南紡購物中心",
+		"RouteOSMRelation":6072564,
+		"RouteCode":1077
 	}
 ]
