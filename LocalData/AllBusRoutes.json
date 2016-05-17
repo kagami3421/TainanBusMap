@@ -128,6 +128,13 @@
 		"RouteCategory":1
 	},
 	{
+		"RouteCodeName":"77",
+		"RouteName":"77路",
+		"RouteOSMRelation":6072564,
+		"RouteCode":1077,
+		"RouteCategory":1
+	},
+	{
 		"RouteCodeName":"Red",
 		"RouteName":"紅幹線",
 		"RouteOSMRelation":3905767,
