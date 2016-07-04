@@ -114,9 +114,9 @@
 		"RouteCode":1077
 	},
 	{
-		"RouteCodeName":"77-1",
 		"RouteName":"安平假日環線公車(77-1路)",
+		"RouteFromTo":"原住民文化會館─原住民文化會館",
 		"RouteOSMRelation":6384303,
 		"RouteCode":1803
-	},
+	}
 ]
