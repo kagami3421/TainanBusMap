@@ -73,9 +73,15 @@
 	},
 	{
 		"RouteName":"黃12",
-		"RouteFromTo":"白河─關子嶺(含假日公車)",
+		"RouteFromTo":"白河─關子嶺",
 		"RouteOSMRelation":4098557,
 		"RouteCode":1512
+	},
+	{
+		"RouteName":"關子嶺假日公車(黃12-2)",
+		"RouteFromTo":"關子嶺",
+		"RouteOSMRelation":7487521,
+		"RouteCode":1805
 	},
 	{
 		"RouteName":"黃13",
@@ -85,15 +91,27 @@
 	},
 	{
 		"RouteName":"黃14",
-		"RouteFromTo":"白河─三層崎、內角",
+		"RouteFromTo":"白河─三層崎",
 		"RouteOSMRelation":4094254,
 		"RouteCode":1514
+	},
+	{
+		"RouteName":"內角生活公車(黃14-1)",
+		"RouteFromTo":"白河─內角",
+		"RouteOSMRelation":7487582,
+		"RouteCode":1806
 	},
 	{
 		"RouteName":"黃15",
 		"RouteFromTo":"白河─詔安厝",
 		"RouteOSMRelation":4094323,
 		"RouteCode":1515
+	},
+	{
+		"RouteName":"黃16",
+		"RouteFromTo":"白河─東山─六甲",
+		"RouteOSMRelation":7487502,
+		"RouteCode":1516
 	},
 	{
 		"RouteName":"黃20",

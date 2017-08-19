@@ -1,9 +1,9 @@
 [
 	{
-		"RouteName":"66關子嶺線",
-		"RouteFromTo":"新營─烏山頭─關子嶺",
-		"RouteOSMRelation":5392668,
-		"RouteCode":6066
+		"RouteName":"33關子嶺線",
+		"RouteFromTo":"新營─高鐵嘉義站─關子嶺",
+		"RouteOSMRelation":7487321,
+		"RouteCode":1033
 	},
 	{
 		"RouteName":"88安平線",
