@@ -108,6 +108,12 @@
 		"RouteCode":10021
 	},
 	{
+		"RouteName":"70路 - 中華環線",
+		"RouteFromTo":"永華市政中心─永華市政中心",
+		"RouteOSMRelation":9385330,
+		"RouteCode":1070
+	},
+	{
 		"RouteName":"77路",
 		"RouteFromTo":"原住民文化會館─南紡購物中心",
 		"RouteOSMRelation":6072564,

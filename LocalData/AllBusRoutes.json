@@ -128,6 +128,13 @@
 		"RouteCategory":1
 	},
 	{
+		"RouteCodeName":"70",
+		"RouteName":"70路 - 中華環線",
+		"RouteOSMRelation":9385330,
+		"RouteCode":1070,
+		"RouteCategory":1
+	},
+	{
 		"RouteCodeName":"77",
 		"RouteName":"77路",
 		"RouteOSMRelation":6072564,
