@@ -19,9 +19,15 @@
 	},
 	{
 		"RouteName":"棕3",
-		"RouteFromTo":"新營─鹽水─南港里、鐵線里",
+		"RouteFromTo":"新營─鹽水─南港里",
 		"RouteOSMRelation":4060474,
 		"RouteCode":1303
+	},
+	{
+		"RouteName":"棕3-1",
+		"RouteFromTo":"新營─鹽水─鐵線里",
+		"RouteOSMRelation":8378816,
+		"RouteCode":1810
 	},
 	{
 		"RouteName":"棕10",
